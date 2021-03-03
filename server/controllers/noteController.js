@@ -1,15 +1,16 @@
 const NoteModel = require("../models/note.model");
 require("dotenv").config();
-
 class noteController {
   async save(req, res) {
     console.log("Сохранение письма");
-    const { values, idUser } = req.body; //textAreaValue, targetEmail, deliveryDate,
+    const { values, idUser } = req.body;
+
     const note = await new NoteModel({
       author: idUser,
       text: values.textAreaValue,
       private: true,
       sendDate: values.deliveryDate,
+      time: values.time,
       receivers: values.targetEmail,
     });
     await note.save();
