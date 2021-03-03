@@ -16,7 +16,7 @@ function App() {
     <BrowserRouter>
       {/*<Navbar />*/}
       <div className="App ">
-        {/*<Main />*/}
+        <Main />
       </div>
       <Link to="/upload">Загрузить файл</Link>
       <Switch>

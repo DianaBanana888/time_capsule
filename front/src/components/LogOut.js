@@ -11,7 +11,7 @@ export default function LogOut() {
 
   async function logOutHandler() {
     dispatch(loadingAC());
-    const response = await fetch('http://localhost:5000/auth/signout', {
+    const response = await fetch('/auth/signout', {
       method: 'POST'
     });
     if (response) {
