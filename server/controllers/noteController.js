@@ -10,6 +10,7 @@ class noteController {
       text: values.textAreaValue,
       private: true,
       sendDate: values.deliveryDate,
+      time: values.time,
       receivers: values.targetEmail,
     });
     await note.save();
