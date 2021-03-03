@@ -40,6 +40,8 @@ export default function Auth() {
     if (response.status === 200) {
       // classStatus += ' hidden';
       console.log('I got the reply from back');
+    } else if (response.status === 401) {
+      console.log('You are already registered, try login');
     } else {
       // classStatus = 'btn btn-primary';
       console.log('Regist/Login is failed');
@@ -63,6 +65,7 @@ export default function Auth() {
         } = result.user;
         dispatch(loginAC(id, login, email, note));
       }
+      console.log('Welcome! Enjoy the web-site');
     } else {
       alert('the user isn\'t registered or wrong password');
     }

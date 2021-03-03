@@ -33,13 +33,11 @@ const authenticateuser = async (req, l, p, done) => {
       console.log('req', req.body)
       try {
         const hashPass = await bcrypt.hash(password, 3);
-        console.log('hashPass', hashPass)
         const newUser = new UserModel({
           login: login,
           email: email,
           password: hashPass,
         });
-        console.log('newUser', newUser)
         await newUser.save();
         done(null, newUser);
       } catch (e) {
