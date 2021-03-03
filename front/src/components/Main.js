@@ -8,7 +8,7 @@ export default function Main() {
   return (
     <div className="d-flex justify-content-around">
       {!isAuth && <Auth />}
-      {isAuth && <LogOut />}
+
     </div>
   );
 }
