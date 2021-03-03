@@ -12,6 +12,7 @@ const NoteModelSchema = new Schema({
   photo: { type: String },
   video: { type: String },
   private: { type: Boolean, default: true, },
+  // receivers: ['maria@gmail.com', 'diana@yandex.ru']
   receivers: Array,
   sendDate: { type: Date, default: date.setDate(date.getDate() + addDays) }
 })

@@ -24,7 +24,7 @@ export default function Auth() {
   }
   async function registrationHandler() {
     dispatch(loadingAC());
-    const response = await fetch('http://localhost:5000/auth/registration', {
+    const response = await fetch('/auth/registration', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'
@@ -48,7 +48,7 @@ export default function Auth() {
 
   async function loginHandler() {
     dispatch(loadingAC());
-    const response = await fetch('http://localhost:5000/auth/login', {
+    const response = await fetch('/auth/login', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'
