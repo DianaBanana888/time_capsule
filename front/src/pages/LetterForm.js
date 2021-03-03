@@ -1,12 +1,13 @@
-import React, { useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { saveNewLetterAC } from "../store/actions";
+import React, { useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { saveNewLetterAC } from '../store/actions';
+import FileUpload from '../components/FileUpload/FileUpload';
 
 export default function LetterForm() {
   const [values, setValues] = useState({
-    textAreaValue: "",
-    targetEmail: "",
-    deliveryDate: "",
+    textAreaValue: '',
+    targetEmail: '',
+    deliveryDate: '',
   });
 
   const dispatch = useDispatch();
@@ -15,12 +16,12 @@ export default function LetterForm() {
   const onSubmitHandler = async (event) => {
     if (values.textAreaValue && values.targetEmail && values.deliveryDate) {
       console.log(values);
-    } else alert("Введите данные");
+    } else alert('Введите данные');
 
-    const res = await fetch("/note/save", {
-      method: "POST",
+    const res = await fetch('/note/save', {
+      method: 'POST',
       headers: {
-        "Content-Type": "application/json",
+        'Content-Type': 'application/json',
       },
       body: JSON.stringify({ values, idUser }),
     });
@@ -29,9 +30,9 @@ export default function LetterForm() {
     dispatch(saveNewLetterAC(result));
 
     setValues({
-      textAreaValue: "",
-      targetEmail: "",
-      deliveryDate: "",
+      textAreaValue: '',
+      targetEmail: '',
+      deliveryDate: '',
     });
   };
 
@@ -84,12 +85,12 @@ export default function LetterForm() {
           ></input>
         </div>
         <div>
-          <button>Прикрепить файл</button>
         </div>
         <div>
           <button type="submit">Отправить</button>
         </div>
       </form>
+      <FileUpload />
     </div>
   );
 }
