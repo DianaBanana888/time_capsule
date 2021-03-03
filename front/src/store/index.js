@@ -20,8 +20,8 @@ const initialState = () => {
   };
   return localStorage.getItem('reduxState')
     ? JSON.parse(localStorage.getItem('reduxState'))
-    : initialState
-}
+    : initialState;
+};
 
 const sagaMiddleware = saga();
 const composeEnhancer = process.env.NODE_ENV === 'production'
@@ -32,8 +32,8 @@ export const store = createStore(
   reducers, initialState(), composeEnhancer
 );
 store.subscribe(() => {
-  localStorage.setItem('reduxState', JSON.stringify(store.getState()))
-})
+  localStorage.setItem('reduxState', JSON.stringify(store.getState()));
+});
 
 sagaMiddleware.run(
   function* () {
