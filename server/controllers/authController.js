@@ -13,7 +13,7 @@ class authController {
 
   async login(req, res) {
     const user = await UserModel.findOne({ _id: req.user.id })
-    console.log("ЛОГИН:", user);
+    console.log("ЛОГИН:");
     return res.json({
       user: {
         id: user.id,
