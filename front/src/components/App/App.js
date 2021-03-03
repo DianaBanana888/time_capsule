@@ -1,13 +1,10 @@
-import {
-  BrowserRouter,
-  Switch,
-  Route,
-  Link
-} from 'react-router-dom';
-import Main from '../Main';
-import './App.css';
-import Navbar from '../Navbar';
-import Home from '../Home';
+import { BrowserRouter, Switch, Route, Link } from "react-router-dom";
+import Main from "../Main";
+import "./App.css";
+import Navbar from "../Navbar";
+import Home from "../Home";
+
+import LetterForm from "../../pages/LetterForm";
 
 function App() {
   return (
@@ -21,7 +18,7 @@ function App() {
           <Home />
         </Route>
         <Route exact path="/create">
-          Машин компонент внутри которого Сашин компонент файл аплоад
+          <LetterForm />
         </Route>
       </Switch>
     </BrowserRouter>
