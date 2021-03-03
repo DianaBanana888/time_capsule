@@ -16,9 +16,9 @@ function App() {
     <BrowserRouter>
       {/*<Navbar />*/}
       <div className="App ">
-        <Main />
+        {/*<Main />*/}
       </div>
-      <Link to="/upload">Загрузить файл</Link>
+      <Link to="/upload">Добавить фото / видео</Link>
       <Switch>
         <Route exact path="/">
           {/*<Home />*/}
