@@ -1,20 +1,27 @@
-const UserModel = require("../models/note.model");
-require("dotenv").config();
+const NoteModel = require('../models/note.model');
+require('dotenv').config();
 
 class noteController {
   async save(req, res) {
-    console.log("Сохранение письма");
-    const { textAreaValue, targetEmail, deliveryDate, idUser } = req.body;
-    const note = await new NoteModel({});
+    console.log('Сохранение письма');
+    const { values, idUser } = req.body;
+    const note = await new NoteModel({
+      author: idUser,
+      text: values.textAreaValue,
+      private: true,
+      sendDate: values.deliveryDate,
+      receivers: values.targetEmail,
+    });
+    await note.save();
     return res.json({
       note: {
         author: idUser,
-        text: textAreaValue,
+        text: values.textAreaValue,
         private: true,
-        sendDate: deliveryDate,
-        receivers: targetEmail,
+        sendDate: values.deliveryDate,
+        receivers: values.targetEmail,
       },
-      message: "Письмо сохранено в базу",
+      message: 'Письмо сохранено в базу',
     });
   }
 }
