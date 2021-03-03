@@ -1,22 +1,30 @@
 import {
   BrowserRouter,
   Switch,
-  Route
+  Route,
+  Link,
 } from 'react-router-dom';
 import Main from '../Main';
 import './App.css';
 import Navbar from '../Navbar';
-import Home from '../Home'
+import Home from '../Home';
+import FileUpload from '../FileUpload/FileUpload';
 
 function App() {
   return (
     <BrowserRouter>
-      <Navbar />
+      {/*<Navbar />*/}
       <div className="App ">
-        <Main />
+        {/*<Main />*/}
       </div>
+      <Link to="/upload">Загрузить файл</Link>
       <Switch>
-        <Route path="/" component={Home} />
+        <Route exact path="/">
+          {/*<Home />*/}
+        </Route>
+        <Route exact path="/upload">
+          <FileUpload />
+        </Route>
       </Switch>
     </BrowserRouter>
   );
