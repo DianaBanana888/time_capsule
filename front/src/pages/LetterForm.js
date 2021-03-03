@@ -8,6 +8,7 @@ export default function LetterForm() {
     textAreaValue: '',
     targetEmail: '',
     deliveryDate: '',
+    time: '',
   });
 
   const dispatch = useDispatch();
@@ -33,6 +34,7 @@ export default function LetterForm() {
       textAreaValue: '',
       targetEmail: '',
       deliveryDate: '',
+      time: '',
     });
   };
 
@@ -85,6 +87,13 @@ export default function LetterForm() {
           ></input>
         </div>
         <div>
+          <label htmlFor="appt-time">Choose an appointment time: </label>
+          <input
+            type="time"
+            name="time"
+            value={values.time}
+            onChange={onChangeHandler}
+          ></input>
         </div>
         <div>
           <button type="submit">Отправить</button>
