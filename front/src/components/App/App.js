@@ -8,6 +8,7 @@ import Main from '../Main';
 import './App.css';
 import Navbar from '../Navbar';
 import Home from '../Home';
+
 import FileUpload from '../FileUpload/FileUpload';
 
 function App() {

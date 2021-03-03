@@ -17,11 +17,8 @@ const authenticateuser = async (req, l, p, done) => {
   const { login, email, password } = req.body
   try {
     if (/login/.test(req.path)) {
-      console.log('login, email, password', login, email, password)
       const user = await UserModel.findOne({ email: email }).exec();
-      console.log('user', user)
       if (!user) {
-        console.log('not okay')
         return done(null, false);
 
       }

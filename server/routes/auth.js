@@ -6,7 +6,7 @@ const router = Router()
 
 router.post('/registration', passport.authenticate('local'), controller.registration)
 router.post('/login', passport.authenticate('local'), controller.login)
-router.get('/signout', controller.signout);
+router.post('/signout', controller.signout);
 
 
 module.exports = router

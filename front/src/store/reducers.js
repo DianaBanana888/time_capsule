@@ -3,7 +3,6 @@ import actionTypes from './types';
 
 export const reducers = (state, action) => {
   switch (action.type) {
-
     case actionTypes.LOGIN:
       return {
         ...state,
@@ -11,6 +10,15 @@ export const reducers = (state, action) => {
         idUser: action.payload.id,
         userName: action.payload.name,
         note: action.payload.arrayNote
+      };
+
+    case actionTypes.LOGOUT:
+      return {
+        ...state,
+        isAuth: false,
+        idUser: '',
+        userName: '',
+        note: []
       };
 
     case actionTypes.LOADING:
