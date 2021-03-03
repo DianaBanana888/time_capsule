@@ -26,7 +26,7 @@ class authController {
   signout(req, res) {
     console.log("singOut");
     req.logout()
-    res.json({ session: false });
+    return res.json({ session: false });
   }
 }
 

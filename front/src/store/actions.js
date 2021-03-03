@@ -5,6 +5,10 @@ export const loginAC = (id, name, arrayNote) => ({
   payload: { id, name, arrayNote }
 });
 
+export const logOutAC = () => ({
+  type: actionTypes.LOGOUT
+});
+
 export const setError = (msg) => ({ type: actionTypes.ERROR, payload: { msg } });
 
 export const loadingAC = () => ({ type: actionTypes.LOADING });
