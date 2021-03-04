@@ -1,3 +1,4 @@
+const app = require('../app.js');
 const NoteModel = require('../models/note.model');
 require('dotenv').config();
 
@@ -25,6 +26,25 @@ class noteController {
         photo: values.photo,
       },
       message: 'Письмо сохранено в базу',
+    });
+  }
+
+  async upload(req, res) {
+    console.log('Загрузка фото');
+    console.log('req.files', req.body)
+    if (req.files === null) {
+      return res.status(400).json({ message: 'Файл не загружен' });
+    }
+    const file = req.files.file;
+    console.log('${__dirname} фото', `${__dirname}`);
+    const timer = new Date().getTime()
+    file.mv(`${__dirname}/../../front/uploads/${timer + '-' + file.name}`, err => {
+      if (err) {
+        console.error(err);
+        res.status(500).send(err);
+      }
+
+      res.json({ fileName: file.name, filePath: `/uploads/${timer + '-' + file.name}` });
     });
   }
 }

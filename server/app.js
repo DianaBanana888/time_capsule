@@ -1,4 +1,5 @@
 const express = require('express');
+const fileUpload = require('express-fileupload');
 const session = require('express-session');
 const passport = require('passport');
 const cors = require('cors');
@@ -18,8 +19,10 @@ startDb
   .on('disconnected', () => {
     console.log('Mongoose default connection disconnected');
   });
+
 app.use(cors());
 app.use(express.json());
+app.use(express.static('uploads'));
 app.use(express.urlencoded({ extended: false }));
 app.use(
   session({
@@ -35,6 +38,7 @@ app.use(
 );
 app.use(passport.initialize());
 app.use(passport.session());
+app.use(fileUpload());
 app.use(userMiddleware);
 app.use('/auth', authRouter);
 app.use('/note', noteRouter);
