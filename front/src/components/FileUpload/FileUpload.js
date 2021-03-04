@@ -3,10 +3,13 @@ import axios from 'axios';
 import Message from './Message';
 import Progress from './Progress';
 
-const FileUpload = () => {
+const FileUpload = ({ testFunction }) => {
   const [file, setFile] = useState('');
   const [filename, setFilename] = useState('Выберите файл для загрузки');
-  const [uploadedFile, setUploadedFile] = useState({});
+  // const [uploadedFile, setUploadedFile] = useState({
+  //   fileName: '',
+  //   filePath: ''
+  // });
   const [message, setMessage] = useState('');
   const [uploadPercentage, setUploadPercentage] = useState(0);
 
@@ -35,11 +38,14 @@ const FileUpload = () => {
         }
       });
       const { fileName, filePath } = res.data;
-      setUploadedFile({ fileName, filePath });
+      // закоментировала, так как setUploadedFile не работал
+      // console.log('fileName, filePath', fileName, filePath);
+      // setUploadedFile({ [fileName]: fileName, filePath });
+      // console.log('uploadedFile', uploadedFile);
       setMessage('Загрузка файла произошла успешно');
       setFile('');
       setFilename('Выберите файл для загрузки');
-      console.log('data()');
+      testFunction(filePath);
     } catch (error) {
       if (error.response.status === 500) {
         setMessage('There was a problem with the server');
@@ -71,18 +77,18 @@ const FileUpload = () => {
         defaultValue="Загрузить"
         className="btn btn-primary btn-block mt-4"
       />
-      {uploadedFile ? (
+      {/* {uploadedFile ? (
         <div className="row mt-5">
           <div className="col-md-6 m-auto">
             <h3 className="text-center">{uploadedFile.fileName}</h3>
-            {/* <img
+            {<img
               style={{ width: '100%' }}
               src={uploadedFile.filePath}
               alt={uploadedFile.fileName}
-            /> */}
+            /> }
           </div>
         </div>
-      ) : null}
+      ) : null} */}
     </>
   );
 };

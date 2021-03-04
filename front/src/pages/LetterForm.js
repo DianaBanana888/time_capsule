@@ -6,6 +6,7 @@ import FileUpload from '../components/FileUpload/FileUpload';
 export default function LetterForm() {
   const [values, setValues] = useState({
     textAreaValue: '',
+    foto: '',
     targetEmail: '',
     deliveryDate: '',
     time: ''
@@ -40,9 +41,11 @@ export default function LetterForm() {
 
   const onChangeHandler = (event) => {
     const { name, value } = event.target;
-    console.log(event.target.name);
-    console.log(event.target.value);
     setValues({ ...values, [name]: value });
+  };
+
+  const testFunction = (param) => {
+    setValues({ ...values, foto: param });
   };
 
   return (
@@ -59,7 +62,7 @@ export default function LetterForm() {
             onChange={onChangeHandler}
           ></textarea>
         </div>
-        <FileUpload />
+        <FileUpload testFunction={testFunction} />
         <div>
           <h5>Email для доставки письма:</h5>
           <input
