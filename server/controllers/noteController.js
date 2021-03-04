@@ -12,6 +12,7 @@ class noteController {
       sendDate: values.deliveryDate,
       time: values.time,
       receivers: values.targetEmail,
+      photo: values.photo,
     });
     await note.save();
     return res.json({
@@ -21,6 +22,7 @@ class noteController {
         private: true,
         sendDate: values.deliveryDate,
         receivers: values.targetEmail,
+        photo: values.photo,
       },
       message: "Письмо сохранено в базу",
     });
