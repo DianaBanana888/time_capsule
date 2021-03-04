@@ -6,15 +6,16 @@ import FileUpload from '../components/FileUpload/FileUpload';
 export default function LetterForm() {
   const [values, setValues] = useState({
     textAreaValue: '',
+    foto: '',
     targetEmail: '',
     deliveryDate: '',
-    time: '',
+    time: ''
   });
 
   const dispatch = useDispatch();
   const { idUser } = useSelector((state) => state);
 
-  const onSubmitHandler = async (event) => {
+  const onSubmitHandler = async () => {
     if (values.textAreaValue && values.targetEmail && values.deliveryDate) {
       console.log(values);
     } else alert('Введите данные');
@@ -22,9 +23,9 @@ export default function LetterForm() {
     const res = await fetch('/note/save', {
       method: 'POST',
       headers: {
-        'Content-Type': 'application/json',
+        'Content-Type': 'application/json'
       },
-      body: JSON.stringify({ values, idUser }),
+      body: JSON.stringify({ values, idUser })
     });
     const result = await res.json();
 
@@ -34,21 +35,23 @@ export default function LetterForm() {
       textAreaValue: '',
       targetEmail: '',
       deliveryDate: '',
-      time: '',
+      time: ''
     });
   };
 
   const onChangeHandler = (event) => {
     const { name, value } = event.target;
-    console.log(event.target.name);
-    console.log(event.target.value);
     setValues({ ...values, [name]: value });
+  };
+
+  const testFunction = (param) => {
+    setValues({ ...values, foto: param });
   };
 
   return (
     <div id="letter-wrapper">
       <h4>Ваше письмо в будущее</h4>
-      <form id="new letter" action="" onSubmit={onSubmitHandler}>
+      <form id="new letter" action="" onSubmit={() => onSubmitHandler()}>
         <div>
           <textarea
             placeholder="Дорогой Будущий я..."
@@ -59,7 +62,7 @@ export default function LetterForm() {
             onChange={onChangeHandler}
           ></textarea>
         </div>
-
+        <FileUpload testFunction={testFunction} />
         <div>
           <h5>Email для доставки письма:</h5>
           <input
@@ -99,7 +102,6 @@ export default function LetterForm() {
           <button type="submit">Отправить</button>
         </div>
       </form>
-      <FileUpload />
     </div>
   );
 }
