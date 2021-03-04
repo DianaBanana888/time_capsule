@@ -1,5 +1,7 @@
 const app = require('./app.js');
 const fileUpload = require('express-fileupload');
+let cron = require('node-cron');
+let nodemailer = require('nodemailer');
 
 app.use(fileUpload());
 
@@ -18,6 +20,37 @@ app.post('/upload', (req, res) => {
     }
 
     res.json({ fileName: file.name, filePath: `/uploads/${new Date().getTime() + '-' + file.name}` });
+  });
+});
+
+
+// cron
+
+// e-mail message options
+let mailOptions = {
+  from: 'center63@mail.ru',
+  to: 'center63@mail.ru',
+  subject: 'Email from Node-App: A Test Message!',
+  text: 'Some content to send',
+};
+// e-mail transport configuration
+let transporter = nodemailer.createTransport({
+  service: 'mail.ru',
+  port: 993,
+  auth: {
+    user: 'center63@mail.ru',
+    pass: '3s41fRw',
+  },
+});
+
+cron.schedule('* * * * *', () => {
+  // Send e-mail
+  transporter.sendMail(mailOptions, function(error, info) {
+    if (error) {
+      console.log(error);
+    } else {
+      console.log('Email sent: ' + info.response);
+    }
   });
 });
 
