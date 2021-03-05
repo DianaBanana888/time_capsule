@@ -15,6 +15,7 @@ const NoteModelSchema = new Schema({
   receivers: { type: String },
   sendDate: { type: Date, default: date.setDate(date.getDate() + addDays) },
   time: { type: String },
+  dianaDeliveryDate: { type: Date }
 });
 
 module.exports = model('NoteModel', NoteModelSchema);

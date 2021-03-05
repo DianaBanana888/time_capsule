@@ -8,6 +8,7 @@ export default function LetterForm() {
     textAreaValue: '',
     photo: '',
     targetEmail: '',
+    dianaDeliveryDate: '',
     deliveryDate: '',
     time: ''
   });
@@ -34,6 +35,7 @@ export default function LetterForm() {
     setValues({
       textAreaValue: '',
       targetEmail: '',
+      dianaDeliveryDate: '',
       deliveryDate: '',
       time: ''
     });
@@ -73,11 +75,21 @@ export default function LetterForm() {
           ></input>
         </div>
         <div>
+          <h5>Диана тест - Выбрать дату:</h5>
+          <input
+            type="datetime-local"
+            name="dianaDeliveryDate"
+            value={values.dianaDeliveryDate}
+            onChange={onChangeHandler}
+          ></input>
+        </div>
+        <div>
           <h5>Доставить через:</h5>
           <a href="#">1 год </a>
           <a href="#">2 года </a>
           <a href="#">5 лет </a>
         </div>
+
         <div>
           <h5>Выбрать дату:</h5>
           <input
@@ -90,7 +102,7 @@ export default function LetterForm() {
           ></input>
         </div>
         <div>
-          <label htmlFor="appt-time">Choose an appointment time: </label>
+          <label htmlFor="appt-time">Choose a time: </label>
           <input
             type="time"
             name="time"
