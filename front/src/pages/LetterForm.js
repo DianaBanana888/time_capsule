@@ -6,11 +6,11 @@ import MaterialUIPickers from "../components/DateTimePicker";
 export default function LetterForm() {
   const [showUpload, setShowupload] = useState(false);
   const [values, setValues] = useState({
-    textAreaValue: "",
-    photo: "",
-    targetEmail: "",
-    deliveryDate: "",
-    time: "",
+    textAreaValue: '',
+    photo: '',
+    targetEmail: '',
+    deliveryDate: '',
+    time: ''
   });
 
   const dispatch = useDispatch();
@@ -24,19 +24,19 @@ export default function LetterForm() {
     const res = await fetch("/note/save", {
       method: "POST",
       headers: {
-        "Content-Type": "application/json",
+        'Content-Type': 'application/json'
       },
-      body: JSON.stringify({ values, idUser }),
+      body: JSON.stringify({ values, idUser })
     });
     const result = await res.json();
 
     dispatch(saveNewLetterAC(result));
 
     setValues({
-      textAreaValue: "",
-      targetEmail: "",
-      deliveryDate: "",
-      time: "",
+      textAreaValue: '',
+      targetEmail: '',
+      deliveryDate: '',
+      time: ''
     });
   };
 

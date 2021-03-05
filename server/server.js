@@ -1,37 +1,16 @@
 const app = require('./app.js');
-const fileUpload = require('express-fileupload');
 let cron = require('node-cron');
 let nodemailer = require('nodemailer');
 const NoteModel = require('./models/note.model');
 
-app.use(fileUpload());
+// const textFromDb = async () => {
+//   const result = (await NoteModel.findOne({ _id: '6040d63f0511ec83b667b647' })).text;
+//   console.log('result', result)
+//   return result;
+// };
 
-// Upload Endpoint
-app.post('/upload', (req, res) => {
-  if (req.files === null) {
-    return res.status(400).json({ message: 'Файл не загружен' });
-  }
-
-  const file = req.files.file;
-
-  file.mv(`${__dirname}/../front/public/uploads/${new Date().getTime() + '-' + file.name}`, err => {
-    if (err) {
-      console.error(err);
-      res.status(500).send(err);
-    }
-
-    res.json({ fileName: file.name, filePath: `/uploads/${new Date().getTime() + '-' + file.name}` });
-  });
-});
-
-
-const textFromDb = async () => {
-  const result = (await NoteModel.findOne({ _id: '603faa7fafd5814ba587c929' })).text;
-  return await result;
-};
-
-const textConst = textFromDb();
-console.log('------', textConst);
+// const textConst = textFromDb();
+// console.log('------', textConst);
 
 // cron
 // e-mail message options
@@ -53,13 +32,15 @@ let transporter = nodemailer.createTransport({
 
 const cronStart = cron.schedule('* * * * *', () => {
   // Send e-mail
-  transporter.sendMail(mailOptions, function(error, info) {
-    if (error) {
-      console.log(error);
-    } else {
-      console.log('Email sent: ' + info.response);
-    }
-  });
+  textFromDb().then((text) => {
+    transporter.sendMail({ ...mailOptions, text }, function (error, info) {
+      if (error) {
+        console.log(error);
+      } else {
+        console.log('Email sent: ' + info.response);
+      }
+    });
+  })
 });
 
 cronStart.stop();
