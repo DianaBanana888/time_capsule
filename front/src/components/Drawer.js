@@ -85,16 +85,22 @@ export default function ScrollableTabsButtonForce() {
           textColor="primary"
           aria-label="scrollable force tabs example"
         >
-          <Tab label="Home" icon={<HomeIcon />} {...a11yProps(0)} />
+          <Tab label="Главная" icon={<HomeIcon />} {...a11yProps(0)} />
           {isAuth ? (
-            <Tab label="LogOut" icon={<PersonPinIcon />} {...a11yProps(1)} />
+            <Tab label="Выйти" icon={<PersonPinIcon />} {...a11yProps(1)} />
           ) : (
-            <Tab label="LogIn" icon={<PersonPinIcon />} {...a11yProps(1)} />
+            <Tab label="Войти" icon={<PersonPinIcon />} {...a11yProps(1)} />
           )}
 
-          <Tab label="Mail" icon={<MailIcon />} {...a11yProps(2)} />
-          <Tab label="FAQ" icon={<HelpIcon />} {...a11yProps(3)} />
-          <Tab label="Account" icon={<ShoppingBasket />} {...a11yProps(4)} />
+          {isAuth ? (
+            <Tab
+              label="Написать письмо"
+              icon={<MailIcon />}
+              {...a11yProps(2)}
+            />
+          ) : null}
+
+          <Tab label="О нас" icon={<HelpIcon />} {...a11yProps(3)} />
         </Tabs>
       </AppBar>
       <TabPanel value={value} index={0}>
@@ -105,13 +111,10 @@ export default function ScrollableTabsButtonForce() {
         {isAuth ? <LogOut /> : <Auth />}
       </TabPanel>
       <TabPanel value={value} index={2}>
-        <LetterForm />
+        {isAuth ? <LetterForm /> : <Faq />}
       </TabPanel>
       <TabPanel value={value} index={3}>
-        <Faq />
-      </TabPanel>
-      <TabPanel value={value} index={4}>
-        Item Four
+        {isAuth ? <Faq /> : null}
       </TabPanel>
     </div>
   );

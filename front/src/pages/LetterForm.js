@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { saveNewLetterAC } from "../store/actions";
 import FileUpload from "../components/FileUpload/FileUpload";
-
+import MaterialUIPickers from "../components/DateTimePicker";
 export default function LetterForm() {
   const [showUpload, setShowupload] = useState(false);
   const [values, setValues] = useState({
@@ -55,13 +55,13 @@ export default function LetterForm() {
 
   return (
     <div>
-      <h4>Ваше письмо в будущее</h4>
+      <h4 className="mb-4">Ваше письмо в будущее</h4>
       <form action="" onSubmit={() => onSubmitHandler()}>
         <div class="form-group">
           <textarea
+            class="form-control"
             placeholder="Дорогой Будущий я..."
             rows="10"
-            cols="45"
             name="textAreaValue"
             value={values.textAreaValue}
             onChange={onChangeHandler}
@@ -70,30 +70,47 @@ export default function LetterForm() {
         {!showUpload ? (
           <button
             onClick={() => showUploadHandler()}
-            className="btn btn-primary"
+            className="btn btn-primary mb-3"
           >
             Добавить фото/видео
           </button>
         ) : (
           <FileUpload testFunction={testFunction} />
         )}
-        <div class="form-group">
-          <h5>Email для доставки письма:</h5>
+        <div class="form-group row ml-1">
+          <h5 class="mr-2">Email для доставки письма:</h5>
           <input
+            class="form-control form-control-label"
             type="text"
             name="targetEmail"
             value={values.targetEmail}
             onChange={onChangeHandler}
           ></input>
         </div>
-        <div class="form-group">
-          <h5>Доставить через:</h5>
-          <a href="#">1 год </a>
-          <a href="#">2 года </a>
-          <a href="#">5 лет </a>
-        </div>
-        <div class="form-group">
-          <h5>Выбрать дату:</h5>
+        <div class="form-group row ml-1">
+          <h5 class="mr-2">Доставить через:</h5>
+          <a
+            class="badge badge-primary mr-3 d-inline-flex align-items-center justify-content-start p-2"
+            href="#"
+          >
+            1 год{" "}
+          </a>
+          &nbsp;
+          <a
+            class="badge badge-primary mr-3 d-inline-flex align-items-center justify-content-start p-2"
+            href="#"
+          >
+            2 года{" "}
+          </a>
+          &nbsp;
+          <a
+            class="badge badge-primary mr-3 d-inline-flex align-items-center justify-content-start p-2"
+            href="#"
+          >
+            5 лет{" "}
+          </a>{" "}
+          &nbsp;
+          <h5 class="mr-2">или выбрать дату:</h5>
           <input
             type="date"
             name="deliveryDate"
@@ -102,9 +119,7 @@ export default function LetterForm() {
             max="2040-12-31"
             onChange={onChangeHandler}
           ></input>
-        </div>
-        <div class="form-group">
-          <label htmlFor="appt-time">Введите время: </label>
+          <h5 class="mr-2"> &nbsp; и время: </h5>
           <input
             type="time"
             name="time"
@@ -112,6 +127,8 @@ export default function LetterForm() {
             onChange={onChangeHandler}
           ></input>
         </div>
+
+        <MaterialUIPickers />
         <div>
           <input
             defaultValue="Отправить"

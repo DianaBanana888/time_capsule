@@ -1,16 +1,15 @@
 const Faq = () => {
   return (
     <div>
-      <h1>Часто задаваемые вопросы</h1>
+      <h1>Об этом проекте:</h1>
       <p>
-        Прежде всего необходимо ознакомиться с "лицензионным соглашением"
-        Вопрос. Для чего нужен ресурс? Ответ. Отправив самому себе письмо в
-        будущее, представьте, как будет приятно его получить! Можно написать то,
-        какая у Вас сейчас жизнь, какие переживания испытываете, на что
-        надеетесь, во что верите. Получив такое письмо через 10 лет,
-        воспоминания принесут много приятных эмоций. Вопрос. Как я могу быть
-        уверенным в том, что через 10 или 20 лет этот ресурс будет существовать?
-        Ответ. Тут остается только верить в это.{" "}
+        Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
+        tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim
+        veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea
+        commodo consequat. Duis aute irure dolor in reprehenderit in voluptate
+        velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint
+        occaecat cupidatat non proident, sunt in culpa qui officia deserunt
+        mollit anim id est laborum.
       </p>
     </div>
   );
