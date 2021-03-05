@@ -11,6 +11,7 @@ class noteController {
       author: idUser,
       text: values.textAreaValue,
       private: true,
+      dianaDeliveryDate: values.dianaDeliveryDate,
       sendDate: values.deliveryDate,
       time: values.time,
       receivers: values.targetEmail,
@@ -22,6 +23,7 @@ class noteController {
         author: idUser,
         text: values.textAreaValue,
         private: true,
+        dianaDeliveryDate: values.dianaDeliveryDate,
         sendDate: values.deliveryDate,
         receivers: values.targetEmail,
         photo: values.photo,
@@ -32,12 +34,10 @@ class noteController {
 
   async upload(req, res) {
     console.log('Загрузка фото');
-    console.log('req.files', req.body)
     if (req.files === null) {
       return res.status(400).json({ message: 'Файл не загружен' });
     }
     const file = req.files.file;
-    console.log('${__dirname} фото', `${__dirname}`);
     const timer = new Date().getTime()
     file.mv(`${__dirname}/../../front/uploads/${timer + '-' + file.name}`, err => {
       if (err) {
@@ -51,3 +51,4 @@ class noteController {
 }
 
 module.exports = new noteController();
+
