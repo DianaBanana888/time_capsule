@@ -4,8 +4,9 @@ require('dotenv').config();
 
 class noteController {
   async save(req, res) {
-    console.log('Сохранение письма');
+    console.log("Сохранение письма");
     const { values, idUser } = req.body;
+
     const note = await new NoteModel({
       author: idUser,
       text: values.textAreaValue,
@@ -27,7 +28,7 @@ class noteController {
         receivers: values.targetEmail,
         photo: values.photo,
       },
-      message: 'Письмо сохранено в базу',
+      message: "Письмо сохранено в базу",
     });
   }
 

@@ -5,18 +5,18 @@ require('dotenv').config();
 class searchController {
   async search(req, res) {
     console.log('Search письма');
-    //адаптация к Машиному коду
+    //адаптация к Машиному коду (дата и время раздельно)
 
     // const { nowDay, tomorrowDay, time } = req.body;
     // const tempNote = await NoteModel.find({
     //   sendDate: { $gt: nowDay }, sendDate: { $lt: tomorrowDay }
     // });
     // console.log('tempNote', tempNote)
-    // const note = note.filter(el => el.time === time ? el : el!=el)
+    // const note = note.filter(el => el.time === time ? el : el != el)
     // console.log('note', note)
     // console.log('note', note.length)
 
-    //адаптация к моему коду
+    //адаптация к моему коду (дата и время вместе)
 
     let now = new Date();
     let nowDay = new Date(now.getFullYear(), now.getMonth(), now.getDate(), now.getHours(), now.getMinutes())
@@ -24,8 +24,8 @@ class searchController {
     const note = await NoteModel.find({
       dianaDeliveryDate: nowDay
     });
-    // const sendNow = note.filter(el => el.dianaDeliveryDate === nowDay ? el : el != el)
     console.log('note', note)
+
     //работает для обоих частей 
 
     if (note.length > 0) {
