@@ -8,6 +8,7 @@ const userMiddleware = require('./middleware/authMiddleware');
 require('./config/passport.js');
 const authRouter = require('./routes/auth');
 const noteRouter = require('./routes/note');
+const searcheRouter = require('./routes/search');
 const app = express();
 startDb
   .on('connected', () => {
@@ -22,7 +23,8 @@ startDb
 
 app.use(cors());
 app.use(express.json());
-app.use(express.static('uploads'));
+app.use('/uploads', express.static('./../front/uploads'))
+
 app.use(express.urlencoded({ extended: false }));
 app.use(
   session({
@@ -42,4 +44,5 @@ app.use(fileUpload());
 app.use(userMiddleware);
 app.use('/auth', authRouter);
 app.use('/note', noteRouter);
+app.use('/search', searcheRouter);
 module.exports = app;
