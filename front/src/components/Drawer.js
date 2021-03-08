@@ -102,16 +102,8 @@ export default function ScrollableTabsButtonForce() {
           aria-label='scrollable force tabs example'
         >
           <Tab label='Главная' icon={<HomeIcon />} {...a11yProps(0)} />
-          {isAuth ? (
-            <Tab
-              onClick={() => logOutHandler()}
-              label='Выйти'
-              icon={<PersonPinIcon />}
-              {...a11yProps(1)}
-            />
-          ) : (
-            <Tab label='Войти' icon={<PersonPinIcon />} {...a11yProps(1)} />
-          )}
+
+          <Tab label='О нас' icon={<HelpIcon />} {...a11yProps(1)} />
 
           {isAuth ? (
             <Tab
@@ -119,9 +111,18 @@ export default function ScrollableTabsButtonForce() {
               icon={<MailIcon />}
               {...a11yProps(2)}
             />
-          ) : null}
+          ) : (
+            <Tab label='Войти' icon={<PersonPinIcon />} {...a11yProps(3)} />
+          )}
 
-          <Tab label='О нас' icon={<HelpIcon />} {...a11yProps(3)} />
+          {isAuth ? (
+            <Tab
+              onClick={() => logOutHandler()}
+              label='Выйти'
+              icon={<PersonPinIcon />}
+              {...a11yProps(3)}
+            />
+          ) : null}
         </Tabs>
       </AppBar>
 
@@ -130,15 +131,14 @@ export default function ScrollableTabsButtonForce() {
       </TabPanel>
 
       <TabPanel value={value} index={1}>
-        {isAuth ? <Home /> : <Auth />}
+        <Faq />
       </TabPanel>
 
       <TabPanel value={value} index={2}>
-        {isAuth ? <LetterForm /> : <Faq />}
+        {isAuth ? <LetterForm /> : <Auth />}
       </TabPanel>
-
       <TabPanel value={value} index={3}>
-        {isAuth ? <Faq /> : null}
+        {!isAuth ? <Auth /> : null}
       </TabPanel>
     </div>
   );
