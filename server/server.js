@@ -22,7 +22,6 @@ let transporter = nodemailer.createTransport({
 });
 
 const cronStart = cron.schedule('* * * * *', async () => {
-  console.log('cron')
   const response = await fetch('http://localhost:5000/search/send-now', {
     method: 'POST',
     headers: {
@@ -33,7 +32,6 @@ const cronStart = cron.schedule('* * * * *', async () => {
 
   const result = await response.json();
   console.log('result', result)
-  console.log('result.message', result.message)
   if (result.message === 'Есть запись для отправки') {
     result.note.map(element => {
       transporter.sendMail(
@@ -55,7 +53,7 @@ const cronStart = cron.schedule('* * * * *', async () => {
   }
 });
 
-cronStart.stop();
+// cronStart.stop();
 
 const port = process.env.PORT || 5000;
 

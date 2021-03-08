@@ -4,8 +4,6 @@ require('dotenv').config();
 
 class searchController {
   async search(req, res) {
-    console.log('Search письма');
-
     let now = new Date();
     let nowDay = new Date(now.getFullYear(), now.getMonth(), now.getDate(), now.getHours(), now.getMinutes())
     const note = await NoteModel.find({
