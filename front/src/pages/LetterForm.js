@@ -8,8 +8,7 @@ export default function LetterForm() {
     textAreaValue: '',
     photo: '',
     targetEmail: '',
-    deliveryDate: '',
-    time: ''
+    deliveryDate: ''
   });
 
   const dispatch = useDispatch();
@@ -34,8 +33,7 @@ export default function LetterForm() {
     setValues({
       textAreaValue: '',
       targetEmail: '',
-      deliveryDate: '',
-      time: ''
+      deliveryDate: ''
     });
   };
 
@@ -73,28 +71,11 @@ export default function LetterForm() {
           ></input>
         </div>
         <div>
-          <h5>Доставить через:</h5>
-          <a href="#">1 год </a>
-          <a href="#">2 года </a>
-          <a href="#">5 лет </a>
-        </div>
-        <div>
           <h5>Выбрать дату:</h5>
           <input
-            type="date"
+            type="datetime-local"
             name="deliveryDate"
             value={values.deliveryDate}
-            min="2020-03-10"
-            max="2040-12-31"
-            onChange={onChangeHandler}
-          ></input>
-        </div>
-        <div>
-          <label htmlFor="appt-time">Choose an appointment time: </label>
-          <input
-            type="time"
-            name="time"
-            value={values.time}
             onChange={onChangeHandler}
           ></input>
         </div>
