@@ -12,7 +12,7 @@ import Typography from '@material-ui/core/Typography';
 import { useDispatch, useSelector } from 'react-redux';
 import Box from '@material-ui/core/Box';
 import Home from './Home';
-import Faq from './Faq';
+import Card from './Card';
 import LetterForm from '../pages/LetterForm';
 import Auth from '../pages/Auth';
 import LogOut from './LogOut';
@@ -112,7 +112,7 @@ export default function ScrollableTabsButtonForce() {
               {...a11yProps(2)}
             />
           ) : (
-            <Tab label='Войти' icon={<PersonPinIcon />} {...a11yProps(3)} />
+            <Tab label='Войти' icon={<PersonPinIcon />} {...a11yProps(2)} />
           )}
 
           {isAuth ? (
@@ -120,7 +120,7 @@ export default function ScrollableTabsButtonForce() {
               onClick={() => logOutHandler()}
               label='Выйти'
               icon={<PersonPinIcon />}
-              {...a11yProps(3)}
+              {...a11yProps(2)}
             />
           ) : null}
         </Tabs>
@@ -131,14 +131,14 @@ export default function ScrollableTabsButtonForce() {
       </TabPanel>
 
       <TabPanel value={value} index={1}>
-        <Faq />
+        <Card />
       </TabPanel>
 
       <TabPanel value={value} index={2}>
         {isAuth ? <LetterForm /> : <Auth />}
       </TabPanel>
       <TabPanel value={value} index={3}>
-        {!isAuth ? <Auth /> : null}
+        {!isAuth ? <Auth /> : <LogOut />}
       </TabPanel>
     </div>
   );

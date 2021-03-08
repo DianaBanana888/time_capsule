@@ -25,12 +25,16 @@ export default function LogOut() {
   }
   return (
     <div>
-      {/* <button onClick={() => logOutHandler()
-      } type="button" className="btn btn-primary">Log out</button>
+      <span>Чтобы выйти из учётной записи, нажмите </span>
+      <button
+        onClick={() => logOutHandler()}
+        type='button'
+        className='btn btn-primary pl-2'
+      >
+        Выйти
+      </button>
       {loading && <Spinner />}
-      {error && <p style={{ color: 'red' }}>{error}</p>} */}
-      Вы успешно вышли из учётной записи. Чтобы иметь возможность отправлять
-      письма, пожалуйста, войдите снова.
+      {error && <p style={{ color: 'red' }}>{error}</p>}
     </div>
   );
 }

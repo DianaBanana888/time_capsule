@@ -1,37 +1,43 @@
-import React from "react";
-import List from "@material-ui/core/List";
+import React from 'react';
+import AssignmentTurnedInIcon from '@material-ui/icons/AssignmentTurnedIn';
+import HistoryIcon from '@material-ui/icons/History';
+import InputIcon from '@material-ui/icons/Input';
+import ContactMailIcon from '@material-ui/icons/ContactMail';
 export default function Home() {
   const urlpic =
-    "https://checkinsea.global/assets/image-cache/29386500-761285150747839-91372160752287744-o.33bf7ce6.jpg";
+    'https://checkinsea.global/assets/image-cache/29386500-761285150747839-91372160752287744-o.33bf7ce6.jpg';
   return (
     <div>
       <div
         style={{
           backgroundImage: `url(${urlpic})`,
-          backgroundSize: "cover",
-          backgroundPosition: "center center",
-          backgroundRepeat: "no-repeat",
-          height: "700px",
+          backgroundSize: 'cover',
+          backgroundPosition: 'center center',
+          backgroundRepeat: 'no-repeat',
+          height: '720px',
           opacity: 0.8,
         }}
       >
-        <h1 className="text-center p-5">Напиши письмо в будущее!</h1>
+        <h1 className='text-center p-5'>Напиши письмо в будущее!</h1>
 
-        <div className="ml-5 mt-3" style={{ width: "400px" }}>
-          Письмо в будущее — послание, отправляемое самому себе, своим потомкам
-          или просто в надежде что кто-то в будущем его найдёт. Известно также
-          под названием капсула времени (временна́я капсула) или послание
-          потомкам. Письма в будущее обычно помещаются в какую-то прочную
-          оболочку, например, металлическую капсулу, и прячется в надёжное
-          место. Известны случаи, когда письма в будущее зарывались в землю,
-          закладывались в фундамент здания или памятника. Часто письмо в будущее
-          «отправляет» группа людей, и происходит это в торжественной
-          обстановке, например, на празднике, школьной линейке, при открытии
-          мемориала. При этом событие освещается прессой. При установке письма в
-          будущее в каком-либо общественном месте часто указывают, через какое
-          время оно должно быть открыто. Содержание письма при его создании
-          может как сообщаться общественности, так и сохраняться в тайне до
-          времени его открытия.
+        <div className='ml-5 pt-1'>
+          <p>
+            <AssignmentTurnedInIcon /> Письмо в будущее — послание, отправляемое
+            самому себе, своим детям, наследникам, друзьям или знакомым.
+          </p>
+          <p>
+            <HistoryIcon /> Такой способ передавать информацию также может быть
+            вам известен под названием "Капсула времени".
+          </p>
+          <p>
+            <InputIcon /> Письма в будущее обычно помещаются в какую-то прочную
+            оболочку, например, металлическую капсулу, которая прячется в
+            надёжное место.
+          </p>
+          <p>
+            <ContactMailIcon /> Напишите послание, укажите адрес, и в указанный
+            Вами день оно придет на электронную почту адресата.
+          </p>
         </div>
       </div>
     </div>
