@@ -1,8 +1,6 @@
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import {
-  loadingAC, loadedAC, logOutAC
-} from '../store/actions';
+import { loadingAC, loadedAC, logOutAC } from '../store/actions';
 import Spinner from './Spinner/Spinner';
 
 export default function LogOut() {
@@ -12,11 +10,13 @@ export default function LogOut() {
   async function logOutHandler() {
     dispatch(loadingAC());
     const response = await fetch('/auth/signout', {
-      method: 'POST'
+      method: 'POST',
     });
     if (response) {
       const result = await response.json();
-      if (!result.session) { dispatch(logOutAC()); }
+      if (!result.session) {
+        dispatch(logOutAC());
+      }
       console.log('Успешный выход');
     } else {
       console.log('Ошибка в выходе из системы');
@@ -25,8 +25,14 @@ export default function LogOut() {
   }
   return (
     <div>
-      <button onClick={() => logOutHandler()
-      } type="button" className="btn btn-primary">Log out</button>
+      <span>Чтобы выйти из учётной записи, нажмите </span>
+      <button
+        onClick={() => logOutHandler()}
+        type='button'
+        className='btn btn-primary pl-2'
+      >
+        Выйти
+      </button>
       {loading && <Spinner />}
       {error && <p style={{ color: 'red' }}>{error}</p>}
     </div>
