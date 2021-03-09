@@ -2,6 +2,8 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import Message from './Message';
 import Progress from './Progress';
+import RecordingVideo from '../Webcam/RecordingVideo';
+import RecordingPhoto from '../Webcam/RecordingPhoto';
 
 const FileUpload = ({ testFunction }) => {
   const [file, setFile] = useState('');
@@ -19,9 +21,9 @@ const FileUpload = ({ testFunction }) => {
     testFunction(photoArray);
   }, [photoArray]);
 
-  const onUpload = async () => {
-    const formData = new FormData();
-    formData.append('file', file);
+    const onUpload = async () => {
+      const formData = new FormData();
+      formData.append('file', file);
 
     try {
       const res = await axios.post(
@@ -67,8 +69,25 @@ const FileUpload = ({ testFunction }) => {
     setPhotoArray(photoArray.filter((item) => item !== el));
   };
 
+  const [recordMyVideo, setRecordMyVideo] = useState(false);
+  const RecordingVideoHandler = () => {
+    setRecordMyVideo(prev => !prev);
+  };
+
   return (
     <>
+      <div style={{ display: 'flex', justifyContent: 'space-around' }}>
+        <div>
+          {
+            recordMyVideo ? <RecordingVideo data={RecordingVideoHandler} />
+              :
+              <button onClick={RecordingVideoHandler} className={'btn btn-success'}>Включить режим записи видео</button>
+          }
+        </div>
+        <div>
+          <RecordingPhoto />
+        </div>
+      </div>
       {message && <Message msg={message} />}
       <div className="custom-file mb-4">
         <input
