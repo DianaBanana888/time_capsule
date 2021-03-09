@@ -9,7 +9,7 @@ export const reducers = (state, action) => {
         isAuth: true,
         idUser: action.payload.id,
         userName: action.payload.name,
-        note: action.payload.arrayNote,
+        note: action.payload.arrayNote
       };
 
     case actionTypes.LOGOUT:
@@ -18,7 +18,7 @@ export const reducers = (state, action) => {
         isAuth: false,
         idUser: '',
         userName: '',
-        note: [],
+        note: []
       };
 
     case actionTypes.LOADING:
@@ -30,7 +30,7 @@ export const reducers = (state, action) => {
 
     case actionTypes.SAVE_LETTER:
       return {
-        ...state,
+        ...state
       };
 
     default:
