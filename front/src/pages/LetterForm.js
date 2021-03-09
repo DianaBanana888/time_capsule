@@ -3,7 +3,10 @@ import { useDispatch, useSelector } from 'react-redux';
 import { saveNewLetterAC } from '../store/actions';
 import FileUpload from '../components/FileUpload/FileUpload';
 
+// import MaterialUIPickers from '../components/DateTimePicker';
+
 export default function LetterForm() {
+  const [showUpload, setShowupload] = useState(false);
   const [values, setValues] = useState({
     textAreaValue: '',
     photo: '',
@@ -28,6 +31,7 @@ export default function LetterForm() {
 
     setValues({
       textAreaValue: '',
+      photo: '',
       targetEmail: '',
       deliveryDate: ''
     });
@@ -42,24 +46,38 @@ export default function LetterForm() {
     setValues({ ...values, photo: param });
   };
 
+  const showUploadHandler = () => {
+    setShowupload(!showUpload);
+  };
+
   return (
-    <div id="letter-wrapper">
-      <h4>Ваше письмо в будущее</h4>
-      <form id="new letter" action="" onSubmit={() => onSubmitHandler()}>
-        <div>
+    <div>
+      <h4 className='mb-4'>Ваше письмо в будущее</h4>
+      <form action='' onSubmit={() => onSubmitHandler()}>
+        <div className='form-group'>
           <textarea
-            placeholder="Дорогой Будущий я..."
-            rows="10"
-            cols="45"
-            name="textAreaValue"
+            className='form-control'
+            placeholder='Дорогой Будущий я...'
+            rows='10'
+            name='textAreaValue'
             value={values.textAreaValue}
             onChange={onChangeHandler}
           ></textarea>
         </div>
-        <FileUpload testFunction={testFunction} />
-        <div>
-          <h5>Email для доставки письма:</h5>
+        {!showUpload ? (
+          <button
+            onClick={() => showUploadHandler()}
+            className='btn btn-primary mb-3'
+          >
+            Добавить фото/видео
+          </button>
+        ) : (
+            <FileUpload testFunction={testFunction} />
+          )}
+        <div className='form-group row ml-1'>
+          <h5 className='mr-2'>Email для доставки письма:</h5>
           <input
+            className='form-control form-control-label'
             type="text"
             name="targetEmail"
             required
@@ -67,8 +85,8 @@ export default function LetterForm() {
             onChange={onChangeHandler}
           ></input>
         </div>
-        <div>
-          <h5>Выбрать дату:</h5>
+        <div className='form-group row ml-1'>
+          <h5 className='mr-2'>Выбрать дату:</h5>
           <input
             type="datetime-local"
             name="deliveryDate"
@@ -77,8 +95,13 @@ export default function LetterForm() {
             onChange={onChangeHandler}
           ></input>
         </div>
+        {/* <MaterialUIPickers /> */}
         <div>
-          <button type="submit">Отправить</button>
+          <input
+            defaultValue='Отправить'
+            type='submit'
+            className='btn btn-primary'
+          ></input>
         </div>
       </form>
     </div>

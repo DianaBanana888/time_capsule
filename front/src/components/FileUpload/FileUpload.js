@@ -24,20 +24,24 @@ const FileUpload = ({ testFunction }) => {
     formData.append('file', file);
 
     try {
-      const res = await axios.post('http://localhost:5000/note/upload', formData, {
-        headers: {
-          'Content-Type': 'multipart/form-data'
-        },
-        onUploadProgress: (progressEvent) => {
-          setUploadPercentage(
-            parseInt(
-              Math.round((progressEvent.loaded * 100) / progressEvent.total)
-            )
-          );
-          // Clear percentage
-          setTimeout(() => setUploadPercentage(0), 10000);
+      const res = await axios.post(
+        'http://localhost:5000/note/upload',
+        formData,
+        {
+          headers: {
+            'Content-Type': 'multipart/form-data'
+          },
+          onUploadProgress: (progressEvent) => {
+            setUploadPercentage(
+              parseInt(
+                Math.round((progressEvent.loaded * 100) / progressEvent.total)
+              )
+            );
+            // Clear percentage
+            setTimeout(() => setUploadPercentage(0), 1000);
+          }
         }
-      });
+      );
       const { filePath } = res.data;
       setPhotoArray([...photoArray, { originalFileName, filePath }]);
       setMessage('Загрузка файла произошла успешно');
@@ -82,7 +86,7 @@ const FileUpload = ({ testFunction }) => {
       <input
         onClick={() => onUpload()}
         defaultValue="Загрузить"
-        className="btn btn-primary btn-block mt-4"
+        className="btn btn-primary mt-3 mb-3"
       />
       {photoArray.length > 0
         ? photoArray.map((el) => <div key={el.filePath} className="row mt-5">
