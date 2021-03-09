@@ -15,10 +15,6 @@ export default function LetterForm() {
   const { idUser } = useSelector((state) => state);
 
   const onSubmitHandler = async () => {
-    if (values.textAreaValue && values.targetEmail && values.deliveryDate) {
-      console.log(values);
-    } else alert('Введите данные');
-
     const res = await fetch('/note/save', {
       method: 'POST',
       headers: {
@@ -66,6 +62,7 @@ export default function LetterForm() {
           <input
             type="text"
             name="targetEmail"
+            required
             value={values.targetEmail}
             onChange={onChangeHandler}
           ></input>
@@ -75,6 +72,7 @@ export default function LetterForm() {
           <input
             type="datetime-local"
             name="deliveryDate"
+            required
             value={values.deliveryDate}
             onChange={onChangeHandler}
           ></input>

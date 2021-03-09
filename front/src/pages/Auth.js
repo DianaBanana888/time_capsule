@@ -39,7 +39,7 @@ export default function Auth() {
     const response = await registrationHandler();
     if (response.status === 200) {
       // classStatus += ' hidden';
-      console.log('I got the reply from back');
+      console.log('You got the reply from back');
     } else if (response.status === 401) {
       console.log('You are already registered, try login');
     } else {

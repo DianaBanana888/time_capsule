@@ -1,5 +1,5 @@
 /* eslint-disable import/prefer-default-export */
-import actionTypes from "./types";
+import actionTypes from './types';
 
 export const reducers = (state, action) => {
   switch (action.type) {
@@ -9,16 +9,16 @@ export const reducers = (state, action) => {
         isAuth: true,
         idUser: action.payload.id,
         userName: action.payload.name,
-        note: action.payload.arrayNote,
+        note: action.payload.arrayNote
       };
 
     case actionTypes.LOGOUT:
       return {
         ...state,
         isAuth: false,
-        idUser: "",
-        userName: "",
-        note: [],
+        idUser: '',
+        userName: '',
+        note: []
       };
 
     case actionTypes.LOADING:
@@ -30,11 +30,10 @@ export const reducers = (state, action) => {
 
     case actionTypes.SAVE_LETTER:
       return {
-        ...state,
+        ...state
       };
 
     default:
-      console.log("default state");
       return state;
   }
 };

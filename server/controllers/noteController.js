@@ -1,7 +1,7 @@
 const app = require('../app.js');
 const NoteModel = require('../models/note.model');
 require('dotenv').config();
-
+const fs = require('fs')
 class noteController {
   async save(req, res) {
     console.log('Сохранение письма');
@@ -41,8 +41,20 @@ class noteController {
         res.status(500).send(err);
       }
 
-      res.json({ fileName: file.name, filePath: `/uploads/${timer + '-' + file.name}` });
+      res.json({ filePath: `/uploads/${timer + '-' + file.name}` });
     });
+  }
+
+  async downdate(req, res) {
+    console.log('Удаление фото');
+    const { filePath } = req.body
+    fs.unlink(`${__dirname}/../../front${filePath}`, (err) => {
+      if (err) {
+        console.error(err)
+        return
+      }
+    })
+    res.end()
   }
 }
 

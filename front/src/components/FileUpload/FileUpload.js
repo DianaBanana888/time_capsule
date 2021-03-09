@@ -1,22 +1,23 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import Message from './Message';
 import Progress from './Progress';
 
 const FileUpload = ({ testFunction }) => {
   const [file, setFile] = useState('');
-  const [filename, setFilename] = useState('Выберите файл для загрузки');
-  // const [uploadedFile, setUploadedFile] = useState({
-  //   fileName: '',
-  //   filePath: ''
-  // });
+  const [originalFileName, setOriginalFileName] = useState('Выберите файл для загрузки');
+  const [photoArray, setPhotoArray] = useState([]);
   const [message, setMessage] = useState('');
   const [uploadPercentage, setUploadPercentage] = useState(0);
 
   const onChange = (e) => {
     setFile(e.target.files[0]);
-    setFilename(e.target.files[0].name);
+    setOriginalFileName(e.target.files[0].name);
   };
+
+  useEffect(() => {
+    testFunction(photoArray);
+  }, [photoArray]);
 
   const onUpload = async () => {
     const formData = new FormData();
@@ -37,15 +38,11 @@ const FileUpload = ({ testFunction }) => {
           setTimeout(() => setUploadPercentage(0), 10000);
         }
       });
-      const { fileName, filePath } = res.data;
-      // закоментировала, так как setUploadedFile не работал
-      // console.log('fileName, filePath', fileName, filePath);
-      // setUploadedFile({ [fileName]: fileName, filePath });
-      // console.log('uploadedFile', uploadedFile);
+      const { filePath } = res.data;
+      setPhotoArray([...photoArray, { originalFileName, filePath }]);
       setMessage('Загрузка файла произошла успешно');
       setFile('');
-      setFilename('Выберите файл для загрузки');
-      testFunction(filePath);
+      setOriginalFileName('Выберите файл для загрузки');
     } catch (error) {
       if (error.response.status === 500) {
         setMessage('There was a problem with the server');
@@ -53,6 +50,17 @@ const FileUpload = ({ testFunction }) => {
         setMessage(error.response.data.message);
       }
     }
+  };
+
+  const onDeleteFoto = (el) => {
+    fetch('http://localhost:5000/note/downdate', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(el)
+    });
+    setPhotoArray(photoArray.filter((item) => item !== el));
   };
 
   return (
@@ -66,29 +74,29 @@ const FileUpload = ({ testFunction }) => {
           onChange={onChange}
         />
         <label htmlFor="customFile" className="custom-file-label">
-          {filename}
+          {originalFileName}
         </label>
       </div>
 
       <Progress percentage={uploadPercentage} />
       <input
         onClick={() => onUpload()}
-        // type="submit"
         defaultValue="Загрузить"
         className="btn btn-primary btn-block mt-4"
       />
-      {/* {uploadedFile ? (
-        <div className="row mt-5">
+      {photoArray.length > 0
+        ? photoArray.map((el) => <div key={el.filePath} className="row mt-5">
           <div className="col-md-6 m-auto">
-            <h3 className="text-center">{uploadedFile.fileName}</h3>
+            <p className="text-center">{el.originalFileName}</p>
             {<img
-              style={{ width: '100%' }}
-              src={uploadedFile.filePath}
-              alt={uploadedFile.fileName}
-            /> }
+              style={{ width: '10%' }}
+              src={el.filePath}
+              alt={el.originalFileName}
+            />}
+            <button onClick={() => onDeleteFoto(el)}>delete</button>
           </div>
-        </div>
-      ) : null} */}
+        </div>)
+        : null}
     </>
   );
 };
