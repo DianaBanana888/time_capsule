@@ -4,13 +4,15 @@ const date = new Date();
 const NoteModelSchema = new Schema({
   author: { type: Schema.Types.ObjectId, ref: "UserModel" },
   text: { type: String },
-  photo: { type: String },
+  photo: [{
+    originalFileName: { type: String },
+    filePath: { type: String }
+  }],
   video: { type: String },
   private: { type: Boolean, default: true },
   receivers: { type: String },
-  // deliveryDate: { type: Date },
-  sendDate: { type: Date, default: date.setDate(date.getDate() + addDays) },
-  time: { type: String },
+  deliveryDate: { type: Date },
+  creationDate: { type: Date, default: new Date() }
 });
 
 module.exports = model("NoteModel", NoteModelSchema);

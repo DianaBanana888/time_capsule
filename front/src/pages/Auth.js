@@ -1,51 +1,45 @@
-import React, { useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { loadingAC, loginAC, loadedAC } from "../store/actions";
-import Spinner from "../components/Spinner/Spinner";
+import React, { useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { loadingAC, loginAC, loadedAC } from '../store/actions';
+import Spinner from '../components/Spinner/Spinner';
 
 export default function Auth() {
   const { isAuth } = useSelector((state) => state);
   const dispatch = useDispatch();
   const [input, setInput] = useState({
-    login: "",
-    email: "",
-    password: "",
+    login: '',
+    email: '',
+    password: ''
   });
-  const classStatus = "btn btn-primary";
+  const classStatus = 'btn btn-primary';
   const { loading, error } = useSelector((state) => state);
 
   function inputChange(event) {
     const { name, value } = event.target;
     setInput({
       ...input,
-      [name]: value,
+      [name]: value
     });
   }
   async function registrationHandler() {
-    console.log("hhhh");
     dispatch(loadingAC());
-    const response = await fetch("/auth/registration", {
-      method: "POST",
+    const response = await fetch('/auth/registration', {
+      method: 'POST',
       headers: {
-        "Content-Type": "application/json",
+        'Content-Type': 'application/json'
       },
-      body: JSON.stringify({ ...input }),
+      body: JSON.stringify({ ...input })
     });
-    console.log("response");
     dispatch(loadedAC());
     return response;
   }
 
   async function clickRegistration() {
-    console.log("clickRegistration");
     const response = await registrationHandler();
     if (response.status === 200) {
-      const result = await response.json();
-      if (result.user && result.user.id) {
-        const { id, login, email, note } = result.user;
-        dispatch(loginAC(id, login, email, note));
-      }
-      console.log("Welcome! Enjoy the web-site");
+      console.log('You got the reply from back');
+    } else if (response.status === 401) {
+      console.log('You are already registered, try login');
     } else {
       alert("the user isn't registered or wrong password");
     }
@@ -54,20 +48,22 @@ export default function Auth() {
 
   async function loginHandler() {
     dispatch(loadingAC());
-    const response = await fetch("/auth/login", {
-      method: "POST",
+    const response = await fetch('/auth/login', {
+      method: 'POST',
       headers: {
-        "Content-Type": "application/json",
+        'Content-Type': 'application/json'
       },
-      body: JSON.stringify({ ...input }),
+      body: JSON.stringify({ ...input })
     });
     if (response.status === 200) {
       const result = await response.json();
       if (result.user && result.user.id) {
-        const { id, login, email, note } = result.user;
+        const {
+          id, login, email, note
+        } = result.user;
         dispatch(loginAC(id, login, email, note));
       }
-      console.log("Welcome! Enjoy the web-site");
+      console.log('Welcome! Enjoy the web-site');
     } else {
       alert("the user isn't registered or wrong password");
     }
@@ -130,7 +126,7 @@ export default function Auth() {
       </form>
 
       {loading && <Spinner />}
-      {error && <p style={{ color: "red" }}>{error}</p>}
+      {error && <p style={{ color: 'red' }}>{error}</p>}
     </div>
   );
 }

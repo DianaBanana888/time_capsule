@@ -7,10 +7,10 @@ const fetch = require("node-fetch");
 // e-mail message options
 let mailOptions = {
   from: process.env.SENDER_EMAIL,
-  to: "",
-  subject: "Email from Time Capsule",
-  text: "",
-  attachments: [{ path: "" }],
+  to: '',
+  subject: 'Email from Time Capsule',
+  text: '',
+  attachments: [{ filename: '', path: '' }],
 };
 // e-mail transport configuration
 let transporter = nodemailer.createTransport({
@@ -30,17 +30,22 @@ const cronStart = cron.schedule("* * * * *", async () => {
     },
     body: JSON.stringify(),
   });
-
+  const arrayPhoto = []
   const result = await response.json();
-  console.log("result", result);
-  if (result.message === "Есть запись для отправки") {
-    result.note.map((element) => {
+  console.log('result', result)
+  if (result.message === 'Есть запись для отправки') {
+    result.note.map(element => {
+      if (element.photo.length > 0) {
+        element.photo.map(el => {
+          arrayPhoto.push({ filename: el.originalFileName, path: `./../front${el.filePath}` })
+        })
+      }
       transporter.sendMail(
         {
           ...mailOptions,
           to: element.receivers,
           text: element.text,
-          attachments: [{ path: `./../front${element.photo}` }],
+          attachments: arrayPhoto,
         },
         function (error, info) {
           if (error) {

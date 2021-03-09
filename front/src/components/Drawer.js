@@ -19,7 +19,9 @@ import LogOut from './LogOut';
 import { loadingAC, loadedAC, logOutAC } from '../store/actions';
 
 function TabPanel(props) {
-  const { children, value, index, ...other } = props;
+  const {
+    children, value, index, ...other
+  } = props;
 
   return (
     <div
@@ -41,13 +43,13 @@ function TabPanel(props) {
 TabPanel.propTypes = {
   children: PropTypes.node,
   index: PropTypes.any.isRequired,
-  value: PropTypes.any.isRequired,
+  value: PropTypes.any.isRequired
 };
 
 function a11yProps(index) {
   return {
     id: `scrollable-force-tab-${index}`,
-    'aria-controls': `scrollable-force-tabpanel-${index}`,
+    'aria-controls': `scrollable-force-tabpanel-${index}`
   };
 }
 
@@ -55,8 +57,8 @@ const useStyles = makeStyles((theme) => ({
   root: {
     flexGrow: 1,
     width: '100%',
-    backgroundColor: theme.palette.background.paper,
-  },
+    backgroundColor: theme.palette.background.paper
+  }
 }));
 
 export default function ScrollableTabsButtonForce() {
@@ -75,7 +77,7 @@ export default function ScrollableTabsButtonForce() {
   async function logOutHandler() {
     dispatch(loadingAC());
     const response = await fetch('/auth/signout', {
-      method: 'POST',
+      method: 'POST'
     });
     if (response) {
       const result = await response.json();
@@ -112,8 +114,8 @@ export default function ScrollableTabsButtonForce() {
               {...a11yProps(2)}
             />
           ) : (
-            <Tab label='Войти' icon={<PersonPinIcon />} {...a11yProps(2)} />
-          )}
+              <Tab label='Войти' icon={<PersonPinIcon />} {...a11yProps(2)} />
+            )}
 
           {isAuth ? (
             <Tab
