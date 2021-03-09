@@ -8,7 +8,7 @@ export default function LetterForm() {
     textAreaValue: '',
     photo: '',
     targetEmail: '',
-    deliveryDate: ''
+    deliveryDate: '',
   });
 
   const dispatch = useDispatch();
@@ -22,9 +22,9 @@ export default function LetterForm() {
     const res = await fetch('/note/save', {
       method: 'POST',
       headers: {
-        'Content-Type': 'application/json'
+        'Content-Type': 'application/json',
       },
-      body: JSON.stringify({ values, idUser })
+      body: JSON.stringify({ values, idUser }),
     });
     const result = await res.json();
 
@@ -33,7 +33,7 @@ export default function LetterForm() {
     setValues({
       textAreaValue: '',
       targetEmail: '',
-      deliveryDate: ''
+      deliveryDate: '',
     });
   };
 

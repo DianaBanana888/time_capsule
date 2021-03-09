@@ -1,5 +1,5 @@
 /* eslint-disable import/prefer-default-export */
-import actionTypes from "./types";
+import actionTypes from './types';
 
 export const reducers = (state, action) => {
   switch (action.type) {
@@ -16,8 +16,8 @@ export const reducers = (state, action) => {
       return {
         ...state,
         isAuth: false,
-        idUser: "",
-        userName: "",
+        idUser: '',
+        userName: '',
         note: [],
       };
 
@@ -34,7 +34,6 @@ export const reducers = (state, action) => {
       };
 
     default:
-      console.log("default state");
       return state;
   }
 };
