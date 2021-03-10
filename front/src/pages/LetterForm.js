@@ -74,33 +74,39 @@ export default function LetterForm() {
         ) : (
           <FileUpload testFunction={testFunction} />
         )}
-        <div className='form-group row ml-1 mt-2'>
-          <h5 className='mr-2'>Email для доставки письма:</h5>
-          <input
-            className='form-control form-control-label'
-            type='text'
-            name='targetEmail'
-            required
-            value={values.targetEmail}
-            onChange={onChangeHandler}
-          ></input>
+        <div className='p-4 mt-3 bg-light rounded'>
+          <div className='form-group row ml-1 mt-2 '>
+            <h5 className='mr-2 mb-3'>Email для доставки письма:</h5>
+            <input
+              className='form-control form-control-label'
+              type='text'
+              name='targetEmail'
+              required
+              value={values.targetEmail}
+              onChange={onChangeHandler}
+            ></input>
+          </div>
+
+          <div class='form-group'>
+            <div className='form-group row ml-1'>
+              <h5 className='mr-2 mt-3'>Выбрать дату:</h5>
+              <input
+                className='form-control'
+                type='datetime-local'
+                name='deliveryDate'
+                required
+                value={values.deliveryDate}
+                onChange={onChangeHandler}
+              ></input>
+            </div>
+          </div>
+          {/* <MaterialUIPickers /> */}
         </div>
-        <div className='form-group row ml-1'>
-          <h5 className='mr-2'>Выбрать дату:</h5>
-          <input
-            type='datetime-local'
-            name='deliveryDate'
-            required
-            value={values.deliveryDate}
-            onChange={onChangeHandler}
-          ></input>
-        </div>
-        {/* <MaterialUIPickers /> */}
         <div>
           <input
             defaultValue='Отправить'
             type='submit'
-            className='btn btn-primary'
+            className='btn btn-primary mt-3'
           ></input>
         </div>
       </form>

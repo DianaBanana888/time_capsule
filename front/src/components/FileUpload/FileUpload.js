@@ -23,9 +23,9 @@ const FileUpload = ({ testFunction }) => {
     testFunction(photoArray);
   }, [photoArray]);
 
-    const onUpload = async () => {
-      const formData = new FormData();
-      formData.append('file', file);
+  const onUpload = async () => {
+    const formData = new FormData();
+    formData.append('file', file);
 
     try {
       const res = await axios.post(
@@ -48,7 +48,7 @@ const FileUpload = ({ testFunction }) => {
       );
       const { filePath } = res.data;
       setPhotoArray([...photoArray, { originalFileName, filePath }]);
-      setMessage('Загрузка файла произошла успешно');
+      setMessage('Загрузка файла прошла успешно');
       setFile('');
       setOriginalFileName('Выберите файл для загрузки');
     } catch (error) {
@@ -73,48 +73,36 @@ const FileUpload = ({ testFunction }) => {
 
   const [recordMyVideo, setRecordMyVideo] = useState(false);
   const RecordingVideoHandler = () => {
-    setRecordMyVideo(prev => !prev);
+    setRecordMyVideo((prev) => !prev);
   };
 
   return (
-    <>
-      <div style={{ display: 'flex', justifyContent: 'space-around' }}>
-        <div>
-          {
-            recordMyVideo ? <RecordingVideo data={RecordingVideoHandler} />
-              :
-              <button onClick={RecordingVideoHandler} className={'btn btn-success'}>Включить режим записи видео</button>
-          }
+    <div>
+      <div className='p-4 mb-3 bg-light rounded'>
+        {message && <Message msg={message} />}
+        <div className='custom-file mb-4'>
+          <input
+            type='file'
+            id='customFile'
+            className='custom-file-input'
+            onChange={onChange}
+          />
+          <label htmlFor='customFile' className='custom-file-label'>
+            {originalFileName}
+          </label>
         </div>
-        <div>
-          <RecordingPhoto />
-        </div>
-      </div>
-      {message && <Message msg={message} />}
-      <div className='custom-file mb-4'>
-        <input
-          type='file'
-          id='customFile'
-          className='custom-file-input'
-          onChange={onChange}
-        />
-        <label htmlFor='customFile' className='custom-file-label'>
-          {originalFileName}
-        </label>
-      </div>
 
-      <Progress percentage={uploadPercentage} />
-      <input
-        onClick={() => onUpload()}
-        defaultValue='Загрузить'
-        className='btn btn-primary mt-3 mb-3'
-      />
+        <Progress percentage={uploadPercentage} />
+        <input
+          onClick={() => onUpload()}
+          defaultValue='Загрузить'
+          className='btn btn-primary mt-3 mb-3'
+        />
+      </div>
       {photoArray.length > 0
         ? photoArray.map((el) => (
-            <div
-              key={el.filePath}
-              className='container border-bottom m-3 h-100 bg-light '
-            >
+            <div key={el.filePath} className='container h-100 '>
+              <hr />
               <div className='row align-items-center h-100'>
                 <div className='col mx-auto'>
                   <img
@@ -125,19 +113,43 @@ const FileUpload = ({ testFunction }) => {
                   />
                 </div>
                 <div className='col mx-auto mr-4'>{el.originalFileName}</div>
-                <div className='col mx-auto '>
+                <div className='col'>
                   <button
-                    className='btn btn-primary '
+                    className='btn btn-primary offset-sm-8'
                     onClick={() => onDeleteFoto(el)}
                   >
                     Удалить
                   </button>
                 </div>
               </div>
+              <hr />
             </div>
           ))
         : null}
-    </>
+
+      <div
+        style={{
+          display: 'flex',
+          justifyContent: 'space-around',
+        }}
+      >
+        <div>
+          {recordMyVideo ? (
+            <RecordingVideo data={RecordingVideoHandler} />
+          ) : (
+            <button
+              onClick={RecordingVideoHandler}
+              className={'btn btn-success mb-3'}
+            >
+              Включить режим записи видео
+            </button>
+          )}
+        </div>
+        <div>
+          <RecordingPhoto />
+        </div>
+      </div>
+    </div>
   );
 };
 
