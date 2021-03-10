@@ -5,13 +5,14 @@ import Progress from './Progress';
 import RecordingVideo from '../Webcam/RecordingVideo';
 import RecordingPhoto from '../Webcam/RecordingPhoto';
 
-const FileUpload = ({ testFunction }) => {
+const FileUpload = ({ testFunction, hideFunction }) => {
   const [file, setFile] = useState('');
   const [originalFileName, setOriginalFileName] = useState(
     'Выберите файл для загрузки'
   );
   const [photoArray, setPhotoArray] = useState([]);
   const [message, setMessage] = useState('');
+
   const [uploadPercentage, setUploadPercentage] = useState(0);
 
   const onChange = (e) => {
@@ -98,6 +99,12 @@ const FileUpload = ({ testFunction }) => {
           defaultValue='Загрузить'
           className='btn btn-primary mt-3 mb-3'
         />
+        <button
+          onClick={() => hideFunction()}
+          className='btn btn-warning mb-3 mt-3 ml-2'
+        >
+          Выйти
+        </button>
       </div>
       {photoArray.length > 0
         ? photoArray.map((el) => (

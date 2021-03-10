@@ -2,11 +2,13 @@ import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { saveNewLetterAC } from '../store/actions';
 import FileUpload from '../components/FileUpload/FileUpload';
+import Message from '../components/FileUpload/Message';
 
 // import MaterialUIPickers from '../components/DateTimePicker';
 
 export default function LetterForm() {
   const [showUpload, setShowupload] = useState(false);
+  const [successSubmit, setSuccessSubmit] = useState('');
   const [values, setValues] = useState({
     textAreaValue: '',
     photo: '',
@@ -17,7 +19,8 @@ export default function LetterForm() {
   const dispatch = useDispatch();
   const { idUser } = useSelector((state) => state);
 
-  const onSubmitHandler = async () => {
+  const onSubmitHandler = async (event) => {
+    event.preventDefault();
     const res = await fetch('/note/save', {
       method: 'POST',
       headers: {
@@ -35,6 +38,8 @@ export default function LetterForm() {
       targetEmail: '',
       deliveryDate: '',
     });
+
+    setSuccessSubmit('Письмо отправлено');
   };
 
   const onChangeHandler = (event) => {
@@ -50,10 +55,14 @@ export default function LetterForm() {
     setShowupload(!showUpload);
   };
 
+  const hideFunction = () => {
+    setShowupload(!showUpload);
+  };
+
   return (
     <div>
       <h4 className='mb-4'>Ваше письмо в будущее</h4>
-      <form action='' onSubmit={() => onSubmitHandler()}>
+      <form action='' onSubmit={(event) => onSubmitHandler(event)}>
         <div className='form-group'>
           <textarea
             className='form-control'
@@ -72,7 +81,7 @@ export default function LetterForm() {
             Добавить фото/видео
           </button>
         ) : (
-          <FileUpload testFunction={testFunction} />
+          <FileUpload testFunction={testFunction} hideFunction={hideFunction} />
         )}
         <div className='p-4 mt-3 bg-light rounded'>
           <div className='form-group row ml-1 mt-2 '>
@@ -87,7 +96,7 @@ export default function LetterForm() {
             ></input>
           </div>
 
-          <div class='form-group'>
+          <div className='form-group'>
             <div className='form-group row ml-1'>
               <h5 className='mr-2 mt-3'>Выбрать дату:</h5>
               <input
@@ -106,10 +115,11 @@ export default function LetterForm() {
           <input
             defaultValue='Отправить'
             type='submit'
-            className='btn btn-primary mt-3'
+            className='btn btn-primary mt-3 mb-3'
           ></input>
         </div>
       </form>
+      {successSubmit && <Message msg={successSubmit} />}
     </div>
   );
 }
