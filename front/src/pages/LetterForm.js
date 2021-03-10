@@ -11,7 +11,7 @@ export default function LetterForm() {
     textAreaValue: '',
     photo: '',
     targetEmail: '',
-    deliveryDate: ''
+    deliveryDate: '',
   });
 
   const dispatch = useDispatch();
@@ -21,9 +21,9 @@ export default function LetterForm() {
     const res = await fetch('/note/save', {
       method: 'POST',
       headers: {
-        'Content-Type': 'application/json'
+        'Content-Type': 'application/json',
       },
-      body: JSON.stringify({ values, idUser })
+      body: JSON.stringify({ values, idUser }),
     });
     const result = await res.json();
 
@@ -33,7 +33,7 @@ export default function LetterForm() {
       textAreaValue: '',
       photo: '',
       targetEmail: '',
-      deliveryDate: ''
+      deliveryDate: '',
     });
   };
 
@@ -72,14 +72,14 @@ export default function LetterForm() {
             Добавить фото/видео
           </button>
         ) : (
-            <FileUpload testFunction={testFunction} />
-          )}
-        <div className='form-group row ml-1'>
+          <FileUpload testFunction={testFunction} />
+        )}
+        <div className='form-group row ml-1 mt-2'>
           <h5 className='mr-2'>Email для доставки письма:</h5>
           <input
             className='form-control form-control-label'
-            type="text"
-            name="targetEmail"
+            type='text'
+            name='targetEmail'
             required
             value={values.targetEmail}
             onChange={onChangeHandler}
@@ -88,8 +88,8 @@ export default function LetterForm() {
         <div className='form-group row ml-1'>
           <h5 className='mr-2'>Выбрать дату:</h5>
           <input
-            type="datetime-local"
-            name="deliveryDate"
+            type='datetime-local'
+            name='deliveryDate'
             required
             value={values.deliveryDate}
             onChange={onChangeHandler}

@@ -5,7 +5,9 @@ import Progress from './Progress';
 
 const FileUpload = ({ testFunction }) => {
   const [file, setFile] = useState('');
-  const [originalFileName, setOriginalFileName] = useState('Выберите файл для загрузки');
+  const [originalFileName, setOriginalFileName] = useState(
+    'Выберите файл для загрузки'
+  );
   const [photoArray, setPhotoArray] = useState([]);
   const [message, setMessage] = useState('');
   const [uploadPercentage, setUploadPercentage] = useState(0);
@@ -29,7 +31,7 @@ const FileUpload = ({ testFunction }) => {
         formData,
         {
           headers: {
-            'Content-Type': 'multipart/form-data'
+            'Content-Type': 'multipart/form-data',
           },
           onUploadProgress: (progressEvent) => {
             setUploadPercentage(
@@ -39,7 +41,7 @@ const FileUpload = ({ testFunction }) => {
             );
             // Clear percentage
             setTimeout(() => setUploadPercentage(0), 1000);
-          }
+          },
         }
       );
       const { filePath } = res.data;
@@ -60,9 +62,9 @@ const FileUpload = ({ testFunction }) => {
     fetch('http://localhost:5000/note/downdate', {
       method: 'POST',
       headers: {
-        'Content-Type': 'application/json'
+        'Content-Type': 'application/json',
       },
-      body: JSON.stringify(el)
+      body: JSON.stringify(el),
     });
     setPhotoArray(photoArray.filter((item) => item !== el));
   };
@@ -70,14 +72,14 @@ const FileUpload = ({ testFunction }) => {
   return (
     <>
       {message && <Message msg={message} />}
-      <div className="custom-file mb-4">
+      <div className='custom-file mb-4'>
         <input
-          type="file"
-          id="customFile"
-          className="custom-file-input"
+          type='file'
+          id='customFile'
+          className='custom-file-input'
           onChange={onChange}
         />
-        <label htmlFor="customFile" className="custom-file-label">
+        <label htmlFor='customFile' className='custom-file-label'>
           {originalFileName}
         </label>
       </div>
@@ -85,21 +87,36 @@ const FileUpload = ({ testFunction }) => {
       <Progress percentage={uploadPercentage} />
       <input
         onClick={() => onUpload()}
-        defaultValue="Загрузить"
-        className="btn btn-primary mt-3 mb-3"
+        defaultValue='Загрузить'
+        className='btn btn-primary mt-3 mb-3'
       />
       {photoArray.length > 0
-        ? photoArray.map((el) => <div key={el.filePath} className="row mt-5">
-          <div className="col-md-6 m-auto">
-            <p className="text-center">{el.originalFileName}</p>
-            {<img
-              style={{ width: '10%' }}
-              src={el.filePath}
-              alt={el.originalFileName}
-            />}
-            <button onClick={() => onDeleteFoto(el)}>delete</button>
-          </div>
-        </div>)
+        ? photoArray.map((el) => (
+            <div
+              key={el.filePath}
+              className='container border-bottom m-3 h-100 bg-light '
+            >
+              <div className='row align-items-center h-100'>
+                <div className='col mx-auto'>
+                  <img
+                    className='m-2 '
+                    style={{ width: '25%' }}
+                    src={el.filePath}
+                    alt={el.originalFileName}
+                  />
+                </div>
+                <div className='col mx-auto mr-4'>{el.originalFileName}</div>
+                <div className='col mx-auto '>
+                  <button
+                    className='btn btn-primary '
+                    onClick={() => onDeleteFoto(el)}
+                  >
+                    Удалить
+                  </button>
+                </div>
+              </div>
+            </div>
+          ))
         : null}
     </>
   );
