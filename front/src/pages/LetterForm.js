@@ -2,11 +2,13 @@ import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { saveNewLetterAC } from '../store/actions';
 import FileUpload from '../components/FileUpload/FileUpload';
+import Message from '../components/FileUpload/Message';
 
 // import MaterialUIPickers from '../components/DateTimePicker';
 
 export default function LetterForm() {
   const [showUpload, setShowupload] = useState(false);
+  const [successSubmit, setSuccessSubmit] = useState('');
   const [values, setValues] = useState({
     textAreaValue: '',
     photo: [],
@@ -35,6 +37,7 @@ export default function LetterForm() {
       deliveryDate: ''
     });
     setShowupload(false);
+    setSuccessSubmit('Письмо отправлено');
   };
 
   const onChangeHandler = (event) => {
@@ -47,6 +50,10 @@ export default function LetterForm() {
   };
 
   const showUploadHandler = () => {
+    setShowupload(!showUpload);
+  };
+
+  const hideFunction = () => {
     setShowupload(!showUpload);
   };
 
@@ -72,38 +79,45 @@ export default function LetterForm() {
             Добавить фото/видео
           </button>
         ) : (
-            <FileUpload testFunction={testFunction} />
+            <FileUpload testFunction={testFunction} hideFunction={hideFunction} />
           )}
-        <div className='form-group row ml-1'>
-          <h5 className='mr-2'>Email для доставки письма:</h5>
-          <input
-            className='form-control form-control-label'
-            type="text"
-            name="targetEmail"
-            required
-            value={values.targetEmail}
-            onChange={onChangeHandler}
-          ></input>
+        <div className='p-4 mt-3 bg-light rounded'>
+          <div className='form-group row ml-1 mt-2 '>
+            <h5 className='mr-2 mb-3'>Email для доставки письма:</h5>
+            <input
+              className='form-control form-control-label'
+              type='text'
+              name='targetEmail'
+              required
+              value={values.targetEmail}
+              onChange={onChangeHandler}
+            ></input>
+          </div>
+
+          <div className='form-group'>
+            <div className='form-group row ml-1'>
+              <h5 className='mr-2 mt-3'>Выбрать дату:</h5>
+              <input
+                className='form-control'
+                type='datetime-local'
+                name='deliveryDate'
+                required
+                value={values.deliveryDate}
+                onChange={onChangeHandler}
+              ></input>
+            </div>
+          </div>
+          {/* <MaterialUIPickers /> */}
         </div>
-        <div className='form-group row ml-1'>
-          <h5 className='mr-2'>Выбрать дату:</h5>
-          <input
-            type="datetime-local"
-            name="deliveryDate"
-            required
-            value={values.deliveryDate}
-            onChange={onChangeHandler}
-          ></input>
-        </div>
-        {/* <MaterialUIPickers /> */}
         <div>
           <input
             defaultValue='Отправить'
             type='submit'
-            className='btn btn-primary'
+            className='btn btn-primary mt-3 mb-3'
           ></input>
         </div>
       </form>
+      {successSubmit && <Message msg={successSubmit} />}
     </div>
   );
 }

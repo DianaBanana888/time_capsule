@@ -8,7 +8,7 @@ export default function Auth() {
   const [input, setInput] = useState({
     login: '',
     email: '',
-    password: ''
+    password: '',
   });
   const classStatus = 'btn btn-primary';
   const { loading, error } = useSelector((state) => state);
@@ -17,7 +17,7 @@ export default function Auth() {
     const { name, value } = event.target;
     setInput({
       ...input,
-      [name]: value
+      [name]: value,
     });
   }
   async function registrationHandler() {
@@ -25,9 +25,9 @@ export default function Auth() {
     const response = await fetch('/auth/registration', {
       method: 'POST',
       headers: {
-        'Content-Type': 'application/json'
+        'Content-Type': 'application/json',
       },
-      body: JSON.stringify({ ...input })
+      body: JSON.stringify({ ...input }),
     });
     dispatch(loadedAC());
     return response;
@@ -36,9 +36,12 @@ export default function Auth() {
   async function clickRegistration() {
     const response = await registrationHandler();
     if (response.status === 200) {
-      console.log('You got the reply from back');
-    } else if (response.status === 401) {
-      console.log('You are already registered, try login');
+      const result = await response.json();
+      if (result.user && result.user.id) {
+        const { id, login, email, note } = result.user;
+        dispatch(loginAC(id, login, email, note));
+      }
+      console.log('Welcome! Enjoy the web-site');
     } else {
       alert("the user isn't registered or wrong password");
     }
@@ -50,16 +53,14 @@ export default function Auth() {
     const response = await fetch('/auth/login', {
       method: 'POST',
       headers: {
-        'Content-Type': 'application/json'
+        'Content-Type': 'application/json',
       },
-      body: JSON.stringify({ ...input })
+      body: JSON.stringify({ ...input }),
     });
     if (response.status === 200) {
       const result = await response.json();
       if (result.user && result.user.id) {
-        const {
-          id, login, email, note
-        } = result.user;
+        const { id, login, email, note } = result.user;
         dispatch(loginAC(id, login, email, note));
       }
       console.log('Welcome! Enjoy the web-site');
@@ -72,53 +73,53 @@ export default function Auth() {
   return (
     <div>
       <form>
-        <div className="form-group">
-          <label htmlFor="exampleInputEmail1">Login</label>
+        <div className='form-group'>
+          <label htmlFor='exampleInputEmail1'>Login</label>
           <input
             onChange={inputChange}
-            type="text"
-            name="login"
-            className="form-control"
-            id="exampleInputEmail1"
-            aria-describedby="emailHelp"
-            placeholder="Enter login"
+            type='text'
+            name='login'
+            className='form-control'
+            id='exampleInputEmail1'
+            aria-describedby='emailHelp'
+            placeholder='Enter login'
           />
         </div>
-        <div className="form-group">
-          <label htmlFor="exampleInputEmail2">Email</label>
+        <div className='form-group'>
+          <label htmlFor='exampleInputEmail2'>Email</label>
           <input
             onChange={inputChange}
-            type="email"
-            name="email"
-            className="form-control"
-            id="exampleInputEmail2"
-            aria-describedby="emailHelp"
-            placeholder="Enter email"
+            type='email'
+            name='email'
+            className='form-control'
+            id='exampleInputEmail2'
+            aria-describedby='emailHelp'
+            placeholder='Enter email'
           />
         </div>
-        <div className="form-group">
-          <label htmlFor="exampleInputPassword1">Password</label>
+        <div className='form-group'>
+          <label htmlFor='exampleInputPassword1'>Password</label>
           <input
             onChange={inputChange}
-            type="password"
-            name="password"
-            className="form-control"
-            id="exampleInputPassword1"
-            placeholder="Password"
+            type='password'
+            name='password'
+            className='form-control'
+            id='exampleInputPassword1'
+            placeholder='Password'
           />
         </div>
 
         <button
           onClick={() => clickRegistration()}
-          type="button"
+          type='button'
           className={classStatus}
         >
           Registration
         </button>
         <button
           onClick={() => loginHandler()}
-          type="button"
-          className="btn btn-primary ml-2"
+          type='button'
+          className='btn btn-primary ml-2'
         >
           LogIn
         </button>
