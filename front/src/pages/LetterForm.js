@@ -11,9 +11,9 @@ export default function LetterForm() {
   const [successSubmit, setSuccessSubmit] = useState('');
   const [values, setValues] = useState({
     textAreaValue: '',
-    photo: '',
+    photo: [],
     targetEmail: '',
-    deliveryDate: '',
+    deliveryDate: ''
   });
 
   const dispatch = useDispatch();
@@ -24,21 +24,19 @@ export default function LetterForm() {
     const res = await fetch('/note/save', {
       method: 'POST',
       headers: {
-        'Content-Type': 'application/json',
+        'Content-Type': 'application/json'
       },
-      body: JSON.stringify({ values, idUser }),
+      body: JSON.stringify({ values, idUser })
     });
     const result = await res.json();
-
-    dispatch(saveNewLetterAC(result));
-
+    dispatch(saveNewLetterAC(result.note));
     setValues({
       textAreaValue: '',
-      photo: '',
+      photo: [],
       targetEmail: '',
-      deliveryDate: '',
+      deliveryDate: ''
     });
-
+    setShowupload(false);
     setSuccessSubmit('Письмо отправлено');
   };
 
@@ -62,7 +60,7 @@ export default function LetterForm() {
   return (
     <div>
       <h4 className='mb-4'>Ваше письмо в будущее</h4>
-      <form action='' onSubmit={(event) => onSubmitHandler(event)}>
+      <form onSubmit={(event) => onSubmitHandler(event)}>
         <div className='form-group'>
           <textarea
             className='form-control'
@@ -81,8 +79,8 @@ export default function LetterForm() {
             Добавить фото/видео
           </button>
         ) : (
-          <FileUpload testFunction={testFunction} hideFunction={hideFunction} />
-        )}
+            <FileUpload testFunction={testFunction} hideFunction={hideFunction} />
+          )}
         <div className='p-4 mt-3 bg-light rounded'>
           <div className='form-group row ml-1 mt-2 '>
             <h5 className='mr-2 mb-3'>Email для доставки письма:</h5>

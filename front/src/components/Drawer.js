@@ -17,6 +17,7 @@ import LetterForm from '../pages/LetterForm';
 import Auth from '../pages/Auth';
 import LogOut from './LogOut';
 import { loadingAC, loadedAC, logOutAC } from '../store/actions';
+import MyAccount from '../pages/MyAccount';
 
 function TabPanel(props) {
   const {
@@ -65,14 +66,12 @@ export default function ScrollableTabsButtonForce() {
   const { isAuth } = useSelector((state) => state);
   const classes = useStyles();
   const [value, setValue] = React.useState(0);
-
   const handleChange = (event, newValue) => {
     setValue(newValue);
   };
 
   // logout
   const dispatch = useDispatch();
-  const { loading, error } = useSelector((state) => state);
 
   async function logOutHandler() {
     dispatch(loadingAC());
@@ -103,28 +102,33 @@ export default function ScrollableTabsButtonForce() {
           textColor='primary'
           aria-label='scrollable force tabs example'
         >
-          <Tab label='Главная' icon={<HomeIcon />} {...a11yProps(0)} />
+          <Tab label='Главная' value={0} icon={<HomeIcon />} {...a11yProps(0)} />
 
-          <Tab label='О нас' icon={<HelpIcon />} {...a11yProps(1)} />
+          <Tab label='О нас' value={1} icon={<HelpIcon />} {...a11yProps(1)} />
 
-          {isAuth ? (
-            <Tab
-              label='Написать письмо'
-              icon={<MailIcon />}
-              {...a11yProps(2)}
-            />
-          ) : (
-              <Tab label='Войти' icon={<PersonPinIcon />} {...a11yProps(2)} />
-            )}
+          {isAuth && <Tab
+            label='Написать письмо'
+            value={2}
+            icon={<MailIcon />}
+            {...a11yProps(2)}
+          />}
+
+          {isAuth && <Tab
+            label='Личный кабинет'
+            value={3}
+            icon={<MailIcon />}
+            {...a11yProps(3)}
+          />}
 
           {isAuth ? (
             <Tab
               onClick={() => logOutHandler()}
               label='Выйти'
+              value={4}
               icon={<PersonPinIcon />}
-              {...a11yProps(2)}
-            />
-          ) : null}
+              {...a11yProps(4)}
+            />)
+            : (<Tab label='Войти' value={4} icon={<PersonPinIcon />} {...a11yProps(4)} />)}
         </Tabs>
       </AppBar>
 
@@ -137,9 +141,14 @@ export default function ScrollableTabsButtonForce() {
       </TabPanel>
 
       <TabPanel value={value} index={2}>
-        {isAuth ? <LetterForm /> : <Auth />}
+        {isAuth && <LetterForm />}
       </TabPanel>
+
       <TabPanel value={value} index={3}>
+        {isAuth && < MyAccount />}
+      </TabPanel>
+
+      <TabPanel value={value} index={4}>
         {!isAuth ? <Auth /> : <LogOut />}
       </TabPanel>
     </div>

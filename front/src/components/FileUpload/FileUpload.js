@@ -1,11 +1,13 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
+import { useSelector } from 'react-redux';
 import Message from './Message';
 import Progress from './Progress';
 import RecordingVideo from '../Webcam/RecordingVideo';
 import RecordingPhoto from '../Webcam/RecordingPhoto';
 
 const FileUpload = ({ testFunction, hideFunction }) => {
+  const { note } = useSelector((state) => state);
   const [file, setFile] = useState('');
   const [originalFileName, setOriginalFileName] = useState(
     'Выберите файл для загрузки'
@@ -24,6 +26,11 @@ const FileUpload = ({ testFunction, hideFunction }) => {
     testFunction(photoArray);
   }, [photoArray]);
 
+  useEffect(() => {
+    setPhotoArray([]);
+    setMessage('');
+  }, [note]);
+
   const onUpload = async () => {
     const formData = new FormData();
     formData.append('file', file);
@@ -34,7 +41,7 @@ const FileUpload = ({ testFunction, hideFunction }) => {
         formData,
         {
           headers: {
-            'Content-Type': 'multipart/form-data',
+            'Content-Type': 'multipart/form-data'
           },
           onUploadProgress: (progressEvent) => {
             setUploadPercentage(
@@ -44,7 +51,7 @@ const FileUpload = ({ testFunction, hideFunction }) => {
             );
             // Clear percentage
             setTimeout(() => setUploadPercentage(0), 1000);
-          },
+          }
         }
       );
       const { filePath } = res.data;
@@ -65,9 +72,9 @@ const FileUpload = ({ testFunction, hideFunction }) => {
     fetch('http://localhost:5000/note/downdate', {
       method: 'POST',
       headers: {
-        'Content-Type': 'application/json',
+        'Content-Type': 'application/json'
       },
-      body: JSON.stringify(el),
+      body: JSON.stringify(el)
     });
     setPhotoArray(photoArray.filter((item) => item !== el));
   };
@@ -79,35 +86,47 @@ const FileUpload = ({ testFunction, hideFunction }) => {
 
   return (
     <div>
-      <div className='p-4 mb-3 bg-light rounded'>
-        {message && <Message msg={message} />}
-        <div className='custom-file mb-4'>
-          <input
-            type='file'
-            id='customFile'
-            className='custom-file-input'
-            onChange={onChange}
-          />
-          <label htmlFor='customFile' className='custom-file-label'>
-            {originalFileName}
-          </label>
+      <div style={{ display: 'flex', justifyContent: 'space-around' }}>
+        <div>
+          {
+            recordMyVideo ? <RecordingVideo data={RecordingVideoHandler} />
+              : <button onClick={RecordingVideoHandler} className={'btn btn-success'}>Включить режим записи видео</button>
+          }
         </div>
-
-        <Progress percentage={uploadPercentage} />
-        <input
-          onClick={() => onUpload()}
-          defaultValue='Загрузить'
-          className='btn btn-primary mt-3 mb-3'
-        />
-        <button
-          onClick={() => hideFunction()}
-          className='btn btn-warning mb-3 mt-3 ml-2'
-        >
-          Выйти
-        </button>
+        <div>
+          <RecordingPhoto />
+        </div>
       </div>
-      {photoArray.length > 0
-        ? photoArray.map((el) => (
+      <div>
+        <div className='p-4 mb-3 bg-light rounded'>
+          {message && <Message msg={message} />}
+          <div className='custom-file mb-4'>
+            <input
+              type='file'
+              id='customFile'
+              className='custom-file-input'
+              onChange={onChange}
+            />
+            <label htmlFor='customFile' className='custom-file-label'>
+              {originalFileName}
+            </label>
+          </div>
+
+          <Progress percentage={uploadPercentage} />
+          <input
+            onClick={() => onUpload()}
+            defaultValue='Загрузить'
+            className='btn btn-primary mt-3 mb-3'
+          />
+          <button
+            onClick={() => hideFunction()}
+            className='btn btn-warning mb-3 mt-3 ml-2'
+          >
+            Выйти
+        </button>
+        </div>
+        {photoArray.length > 0
+          ? photoArray.map((el) => (
             <div key={el.filePath} className='container h-100 '>
               <hr />
               <div className='row align-items-center h-100'>
@@ -128,33 +147,11 @@ const FileUpload = ({ testFunction, hideFunction }) => {
                     Удалить
                   </button>
                 </div>
+                <hr />
               </div>
-              <hr />
             </div>
           ))
-        : null}
-
-      <div
-        style={{
-          display: 'flex',
-          justifyContent: 'space-around',
-        }}
-      >
-        <div>
-          {recordMyVideo ? (
-            <RecordingVideo data={RecordingVideoHandler} />
-          ) : (
-            <button
-              onClick={RecordingVideoHandler}
-              className={'btn btn-success mb-3'}
-            >
-              Включить режим записи видео
-            </button>
-          )}
-        </div>
-        <div>
-          <RecordingPhoto />
-        </div>
+          : null}
       </div>
     </div>
   );

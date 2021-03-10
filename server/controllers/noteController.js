@@ -9,21 +9,14 @@ class noteController {
     const note = await new NoteModel({
       author: idUser,
       text: values.textAreaValue,
-      private: true,
       deliveryDate: values.deliveryDate,
       receivers: values.targetEmail,
       photo: values.photo,
     });
     await note.save();
+    const returnNote = await NoteModel.findById({ _id: note._id })
     return res.json({
-      note: {
-        author: idUser,
-        text: values.textAreaValue,
-        private: true,
-        deliveryDate: values.deliveryDate,
-        receivers: values.targetEmail,
-        photo: values.photo,
-      },
+      note: returnNote,
       message: 'Письмо сохранено в базу',
     });
   }
