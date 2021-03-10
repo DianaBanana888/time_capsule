@@ -23,9 +23,9 @@ const FileUpload = ({ testFunction }) => {
     testFunction(photoArray);
   }, [photoArray]);
 
-    const onUpload = async () => {
-      const formData = new FormData();
-      formData.append('file', file);
+  const onUpload = async () => {
+    const formData = new FormData();
+    formData.append('file', file);
 
     try {
       const res = await axios.post(
@@ -73,18 +73,23 @@ const FileUpload = ({ testFunction }) => {
 
   const [recordMyVideo, setRecordMyVideo] = useState(false);
   const RecordingVideoHandler = () => {
-    setRecordMyVideo(prev => !prev);
+    setRecordMyVideo((prev) => !prev);
   };
 
   return (
     <>
       <div style={{ display: 'flex', justifyContent: 'space-around' }}>
         <div>
-          {
-            recordMyVideo ? <RecordingVideo data={RecordingVideoHandler} />
-              :
-              <button onClick={RecordingVideoHandler} className={'btn btn-success'}>Включить режим записи видео</button>
-          }
+          {recordMyVideo ? (
+            <RecordingVideo data={RecordingVideoHandler} />
+          ) : (
+            <button
+              onClick={RecordingVideoHandler}
+              className={'btn btn-success mb-3'}
+            >
+              Включить режим записи видео
+            </button>
+          )}
         </div>
         <div>
           <RecordingPhoto />
@@ -127,7 +132,7 @@ const FileUpload = ({ testFunction }) => {
                 <div className='col mx-auto mr-4'>{el.originalFileName}</div>
                 <div className='col mx-auto '>
                   <button
-                    className='btn btn-primary '
+                    className='btn btn-primary'
                     onClick={() => onDeleteFoto(el)}
                   >
                     Удалить
