@@ -37,9 +37,12 @@ export default function Auth() {
   async function clickRegistration() {
     const response = await registrationHandler();
     if (response.status === 200) {
-      console.log('You got the reply from back');
-    } else if (response.status === 401) {
-      console.log('You are already registered, try login');
+      const result = await response.json();
+      if (result.user && result.user.id) {
+        const { id, login, email, note } = result.user;
+        dispatch(loginAC(id, login, email, note));
+      }
+      console.log('Welcome! Enjoy the web-site');
     } else {
       alert("the user isn't registered or wrong password");
     }

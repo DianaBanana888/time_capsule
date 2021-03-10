@@ -48,7 +48,7 @@ const FileUpload = ({ testFunction }) => {
       );
       const { filePath } = res.data;
       setPhotoArray([...photoArray, { originalFileName, filePath }]);
-      setMessage('Загрузка файла произошла успешно');
+      setMessage('Загрузка файла прошла успешно');
       setFile('');
       setOriginalFileName('Выберите файл для загрузки');
     } catch (error) {
@@ -77,8 +77,62 @@ const FileUpload = ({ testFunction }) => {
   };
 
   return (
-    <>
-      <div style={{ display: 'flex', justifyContent: 'space-around' }}>
+    <div>
+      <div className='p-4 mb-3 bg-light rounded'>
+        {message && <Message msg={message} />}
+        <div className='custom-file mb-4'>
+          <input
+            type='file'
+            id='customFile'
+            className='custom-file-input'
+            onChange={onChange}
+          />
+          <label htmlFor='customFile' className='custom-file-label'>
+            {originalFileName}
+          </label>
+        </div>
+
+        <Progress percentage={uploadPercentage} />
+        <input
+          onClick={() => onUpload()}
+          defaultValue='Загрузить'
+          className='btn btn-primary mt-3 mb-3'
+        />
+      </div>
+      {photoArray.length > 0
+        ? photoArray.map((el) => (
+            <div key={el.filePath} className='container h-100 '>
+              <hr />
+              <div className='row align-items-center h-100'>
+                <div className='col mx-auto'>
+                  <img
+                    className='m-2 '
+                    style={{ width: '25%' }}
+                    src={el.filePath}
+                    alt={el.originalFileName}
+                  />
+                </div>
+                <div className='col mx-auto mr-4'>{el.originalFileName}</div>
+                <div className='col'>
+                  <button
+                    className='btn btn-primary offset-sm-8'
+                    onClick={() => onDeleteFoto(el)}
+                  >
+                    Удалить
+                  </button>
+                </div>
+              </div>
+              <hr />
+            </div>
+          ))
+        : null}
+
+      <div
+        style={{
+          display: 'flex',
+          justifyContent: 'space-around',
+        }}
+      >
         <div>
           {recordMyVideo ? (
             <RecordingVideo data={RecordingVideoHandler} />
@@ -95,54 +149,7 @@ const FileUpload = ({ testFunction }) => {
           <RecordingPhoto />
         </div>
       </div>
-      {message && <Message msg={message} />}
-      <div className='custom-file mb-4'>
-        <input
-          type='file'
-          id='customFile'
-          className='custom-file-input'
-          onChange={onChange}
-        />
-        <label htmlFor='customFile' className='custom-file-label'>
-          {originalFileName}
-        </label>
-      </div>
-
-      <Progress percentage={uploadPercentage} />
-      <input
-        onClick={() => onUpload()}
-        defaultValue='Загрузить'
-        className='btn btn-primary mt-3 mb-3'
-      />
-      {photoArray.length > 0
-        ? photoArray.map((el) => (
-            <div
-              key={el.filePath}
-              className='container border-bottom m-3 h-100 bg-light '
-            >
-              <div className='row align-items-center h-100'>
-                <div className='col mx-auto'>
-                  <img
-                    className='m-2 '
-                    style={{ width: '25%' }}
-                    src={el.filePath}
-                    alt={el.originalFileName}
-                  />
-                </div>
-                <div className='col mx-auto mr-4'>{el.originalFileName}</div>
-                <div className='col mx-auto '>
-                  <button
-                    className='btn btn-primary'
-                    onClick={() => onDeleteFoto(el)}
-                  >
-                    Удалить
-                  </button>
-                </div>
-              </div>
-            </div>
-          ))
-        : null}
-    </>
+    </div>
   );
 };
 
