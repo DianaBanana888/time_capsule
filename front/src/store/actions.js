@@ -9,9 +9,7 @@ export const loginAC = (id, name, email, arrayNote) => ({
 
 export const changeMindAC = (id, wantSending) => ({
   type: actionTypes.CHANGE_MIND,
-  payload: {
-    id, wantSending
-  }
+  payload: { id, wantSending }
 });
 
 export const deleteAC = (id) => ({

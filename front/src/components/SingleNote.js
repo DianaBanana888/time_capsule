@@ -20,6 +20,7 @@ export default function SingleNote({ element }) {
     });
     dispatch(changeMindAC(id, wantSending));
   };
+
   const onDeleteSingleNote = (id) => {
     fetch('http://localhost:5000/singleNoteAction/delete', {
       method: 'POST',
@@ -48,37 +49,60 @@ export default function SingleNote({ element }) {
 
   return (
     <div>
-      <li >
-        <input
-          onClick={() => onChangeMind(element._id, element.wantSending)}
-          type='checkbox'
-          id={element._id}
-          name='checkbox'
-          value={element.wantSending}
-          defaultChecked={element.wantSending}
-        />
-        <p>Запись, созданая {dateFormat(element.creationDate)},
+      <li
+        style={{
+          display: 'flex',
+          flexWrap: 'wrap',
+          justifyContent: 'space-evenly'
+        }}
+      >
+        <div>
+          <input
+            onClick={() => onChangeMind(element._id, element.wantSending)}
+            type='checkbox'
+            id={element._id}
+            name='checkbox'
+            value={element.wantSending}
+            defaultChecked={element.wantSending}
+          />
+        </div>
+        <div
+          style={{
+            width: '600px',
+            display: 'flex',
+            flexDirection: 'column',
+            flexWrap: 'wrap',
+            justifyContent: 'space-evenly'
+          }}
+        >
+          <p>Запись, созданая {dateFormat(element.creationDate)},
         для адресата {element.receivers}</p>
-        {edit ? (
-          <input type='text' defaultValue={element.text} onChange={changingHandler} />
-        ) : (<label >
-          {element.text}
-        </label>)}
-        {edit ? (
+          <div>
+            {edit ? (
+              <input type='text' defaultValue={element.text} onChange={changingHandler} />
+            ) : (<label >
+              {element.text}
+            </label>)}
+            {edit ? (
+              <button
+                className="btn btn-outline-success"
+                onClick={() => { setEdit(false); saveEditItem(element._id, save); }}>save text</button>
+            ) : (
+                <button
+                  className="btn btn-outline-primary"
+                  onClick={() => setEdit(true)}>edit text</button>
+              )}
+          </div>
+          <p style={{ fontStyle: 'italic' }}>Медафайлы: {element.photo.length}шт</p>
+          <p>Отправка запланирована на {dateFormat(element.deliveryDate)} </p>
+        </div>
+        <div>
           <button
-            className="btn btn-outline-success"
-            onClick={() => { setEdit(false); saveEditItem(element._id, save); }}>save</button>
-        ) : (
-            <button
-              className="btn btn-outline-primary"
-              onClick={() => setEdit(true)}>edit</button>
-          )}
-
-        <p style={{ fontStyle: 'italic' }}>Медафайлы: {element.photo.length}шт</p>
-        <p>Отправка запланирована на {dateFormat(element.deliveryDate)} </p>
-        <button onClick={() => onDeleteSingleNote(element._id)}>delete</button>
-
+            className="btn btn-outline-dark"
+            onClick={() => onDeleteSingleNote(element._id)}>delete</button>
+        </div>
       </li>
-    </div>
+      <br />
+    </div >
   );
 }
