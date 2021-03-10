@@ -1,11 +1,13 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
+import { useSelector } from 'react-redux';
 import Message from './Message';
 import Progress from './Progress';
 import RecordingVideo from '../Webcam/RecordingVideo';
 import RecordingPhoto from '../Webcam/RecordingPhoto';
 
 const FileUpload = ({ testFunction }) => {
+  const { note } = useSelector((state) => state);
   const [file, setFile] = useState('');
   const [originalFileName, setOriginalFileName] = useState(
     'Выберите файл для загрузки'
@@ -23,9 +25,14 @@ const FileUpload = ({ testFunction }) => {
     testFunction(photoArray);
   }, [photoArray]);
 
-    const onUpload = async () => {
-      const formData = new FormData();
-      formData.append('file', file);
+  useEffect(() => {
+    setPhotoArray([]);
+    setMessage('');
+  }, [note]);
+
+  const onUpload = async () => {
+    const formData = new FormData();
+    formData.append('file', file);
 
     try {
       const res = await axios.post(
@@ -33,7 +40,7 @@ const FileUpload = ({ testFunction }) => {
         formData,
         {
           headers: {
-            'Content-Type': 'multipart/form-data',
+            'Content-Type': 'multipart/form-data'
           },
           onUploadProgress: (progressEvent) => {
             setUploadPercentage(
@@ -43,7 +50,7 @@ const FileUpload = ({ testFunction }) => {
             );
             // Clear percentage
             setTimeout(() => setUploadPercentage(0), 1000);
-          },
+          }
         }
       );
       const { filePath } = res.data;
@@ -64,16 +71,16 @@ const FileUpload = ({ testFunction }) => {
     fetch('http://localhost:5000/note/downdate', {
       method: 'POST',
       headers: {
-        'Content-Type': 'application/json',
+        'Content-Type': 'application/json'
       },
-      body: JSON.stringify(el),
+      body: JSON.stringify(el)
     });
     setPhotoArray(photoArray.filter((item) => item !== el));
   };
 
   const [recordMyVideo, setRecordMyVideo] = useState(false);
   const RecordingVideoHandler = () => {
-    setRecordMyVideo(prev => !prev);
+    setRecordMyVideo((prev) => !prev);
   };
 
   return (
@@ -82,8 +89,7 @@ const FileUpload = ({ testFunction }) => {
         <div>
           {
             recordMyVideo ? <RecordingVideo data={RecordingVideoHandler} />
-              :
-              <button onClick={RecordingVideoHandler} className={'btn btn-success'}>Включить режим записи видео</button>
+              : <button onClick={RecordingVideoHandler} className={'btn btn-success'}>Включить режим записи видео</button>
           }
         </div>
         <div>
@@ -111,31 +117,31 @@ const FileUpload = ({ testFunction }) => {
       />
       {photoArray.length > 0
         ? photoArray.map((el) => (
-            <div
-              key={el.filePath}
-              className='container border-bottom m-3 h-100 bg-light '
-            >
-              <div className='row align-items-center h-100'>
-                <div className='col mx-auto'>
-                  <img
-                    className='m-2 '
-                    style={{ width: '25%' }}
-                    src={el.filePath}
-                    alt={el.originalFileName}
-                  />
-                </div>
-                <div className='col mx-auto mr-4'>{el.originalFileName}</div>
-                <div className='col mx-auto '>
-                  <button
-                    className='btn btn-primary '
-                    onClick={() => onDeleteFoto(el)}
-                  >
-                    Удалить
+          <div
+            key={el.filePath}
+            className='container border-bottom m-3 h-100 bg-light '
+          >
+            <div className='row align-items-center h-100'>
+              <div className='col mx-auto'>
+                <img
+                  className='m-2 '
+                  style={{ width: '25%' }}
+                  src={el.filePath}
+                  alt={el.originalFileName}
+                />
+              </div>
+              <div className='col mx-auto mr-4'>{el.originalFileName}</div>
+              <div className='col mx-auto '>
+                <button
+                  className='btn btn-primary '
+                  onClick={() => onDeleteFoto(el)}
+                >
+                  Удалить
                   </button>
-                </div>
               </div>
             </div>
-          ))
+          </div>
+        ))
         : null}
     </>
   );

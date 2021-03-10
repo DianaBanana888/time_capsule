@@ -1,19 +1,39 @@
-import { BrowserRouter, Switch, Route } from "react-router-dom";
-import Main from "../Main";
-import "./App.css";
-import Navbar from "../Navbar";
-import Home from "../Home";
+import { BrowserRouter, Switch, Route } from 'react-router-dom';
+import React, { useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import './App.css';
 
-import LetterForm from '../../pages/LetterForm';
-import React from 'react';
-import Drawer from "../Drawer";
-import { MuiPickersUtilsProvider } from "@material-ui/pickers";
+import { MuiPickersUtilsProvider } from '@material-ui/pickers';
 // pick a date util library
-import MomentUtils from "@date-io/moment";
-import DateFnsUtils from "@date-io/date-fns";
-import LuxonUtils from "@date-io/luxon";
+import DateFnsUtils from '@date-io/date-fns';
+import LetterForm from '../../pages/LetterForm';
+import Drawer from '../Drawer';
+import MyAccount from '../../pages/MyAccount';
+import { loginAC } from '../../store/actions';
 
 function App() {
+  const { isAuth } = useSelector((state) => state);
+  const dispatch = useDispatch();
+  useEffect(async () => {
+    if (isAuth) {
+      const response = await fetch('/auth/essential', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify()
+      });
+      if (response.status === 200) {
+        const result = await response.json();
+        if (result.user && result.user.id) {
+          const {
+            id, login, email, note
+          } = result.user;
+          dispatch(loginAC(id, login, email, note));
+        }
+      }
+    }
+  }, []);
   return (
     <>
       <MuiPickersUtilsProvider utils={DateFnsUtils}>
@@ -26,6 +46,9 @@ function App() {
             </Route> */}
             <Route exact path="/create">
               <LetterForm />
+            </Route>
+            <Route exact path="/myAccount">
+              <MyAccount />
             </Route>
           </Switch>
         </BrowserRouter>

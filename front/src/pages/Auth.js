@@ -4,7 +4,6 @@ import { loadingAC, loginAC, loadedAC } from '../store/actions';
 import Spinner from '../components/Spinner/Spinner';
 
 export default function Auth() {
-  const { isAuth } = useSelector((state) => state);
   const dispatch = useDispatch();
   const [input, setInput] = useState({
     login: '',

@@ -9,6 +9,7 @@ require("./config/passport.js");
 const authRouter = require("./routes/auth");
 const noteRouter = require("./routes/note");
 const searcheRouter = require("./routes/search");
+const singleNoteRouter = require("./routes/singleNoteAction");
 const app = express();
 startDb
   .on("connected", () => {
@@ -46,4 +47,5 @@ app.use(userMiddleware);
 app.use("/auth", authRouter);
 app.use("/note", noteRouter);
 app.use("/search", searcheRouter);
+app.use("/singleNoteAction", singleNoteRouter);
 module.exports = app;

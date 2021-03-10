@@ -9,6 +9,7 @@ export const reducers = (state, action) => {
         isAuth: true,
         idUser: action.payload.id,
         userName: action.payload.name,
+        userEmail: action.payload.email,
         note: action.payload.arrayNote
       };
 
@@ -30,7 +31,36 @@ export const reducers = (state, action) => {
 
     case actionTypes.SAVE_LETTER:
       return {
-        ...state
+        ...state,
+        note: [
+          ...state.note,
+          action.payload
+        ]
+      };
+
+    case actionTypes.CHANGE_MIND:
+      return {
+        ...state,
+        note:
+          state.note.map((el) => (el._id === action.payload.id
+            ? { ...el, wantSending: !action.payload.wantSending }
+            : el))
+      };
+
+    case actionTypes.DELETE:
+      return {
+        ...state,
+        note:
+          state.note.filter((el) => el._id !== action.payload)
+      };
+
+    case actionTypes.UPD_TEXT:
+      return {
+        ...state,
+        note:
+          state.note.map((el) => (el._id === action.payload.id
+            ? { ...el, text: action.payload.text }
+            : el))
       };
 
     default:

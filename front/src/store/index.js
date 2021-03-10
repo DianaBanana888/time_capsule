@@ -2,12 +2,8 @@ import { createStore, applyMiddleware } from 'redux';
 import { composeWithDevTools } from 'redux-devtools-extension';
 import thunkMiddleware from 'redux-thunk';
 import saga from 'redux-saga';
-import { all } from 'redux-saga/effects';
 
 import { reducers } from './reducers';
-import {
-
-} from './saga';
 
 const initialState = () => {
   const initialState = {
@@ -15,8 +11,7 @@ const initialState = () => {
     idUser: '',
     userName: '',
     loading: false,
-    error: false,
-    note: []
+    error: false
   };
   return localStorage.getItem('reduxState')
     ? JSON.parse(localStorage.getItem('reduxState'))
@@ -34,11 +29,3 @@ export const store = createStore(
 store.subscribe(() => {
   localStorage.setItem('reduxState', JSON.stringify(store.getState()));
 });
-
-sagaMiddleware.run(
-  function* () {
-    yield all(
-      []
-    );
-  }
-);

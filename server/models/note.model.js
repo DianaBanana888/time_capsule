@@ -9,7 +9,7 @@ const NoteModelSchema = new Schema({
     filePath: { type: String }
   }],
   video: { type: String },
-  private: { type: Boolean, default: true },
+  wantSending: { type: Boolean, default: true },
   receivers: { type: String },
   deliveryDate: { type: Date },
   creationDate: { type: Date, default: new Date() }
