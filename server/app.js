@@ -1,6 +1,7 @@
 const express = require("express");
 const fileUpload = require("express-fileupload");
 const session = require("express-session");
+const path = require('path');
 const passport = require("passport");
 const cors = require("cors");
 const { startDb, sessionStore } = require("./db/mongoDb");
@@ -24,7 +25,7 @@ startDb
 
 app.use(cors());
 app.use(express.json());
-//app.use(express.static('uploads')); //??
+app.use(express.static(path.join(dirname, 'client', 'build'))); // middlewares
 app.use("/uploads", express.static("./../front/uploads"));
 
 app.use(express.urlencoded({ extended: false }));
@@ -44,8 +45,13 @@ app.use(passport.initialize());
 app.use(passport.session());
 app.use(fileUpload());
 app.use(userMiddleware);
-app.use("/auth", authRouter);
-app.use("/note", noteRouter);
-app.use("/search", searcheRouter);
-app.use("/singleNoteAction", singleNoteRouter);
+app.use("/api/auth", authRouter);
+app.use("/api/note", noteRouter);
+app.use("/api/search", searcheRouter);
+app.use("/api/singleNoteAction", singleNoteRouter);
+
+app.get('*', (req, res) => {
+  res.sendFile(path.join(dirname, 'client', 'build', 'index.html'));
+});
+
 module.exports = app;
