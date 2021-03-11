@@ -41,7 +41,7 @@ const FileUpload = ({ testFunction, hideFunction }) => {
         formData,
         {
           headers: {
-            'Content-Type': 'multipart/form-data'
+            'Content-Type': 'multipart/form-data',
           },
           onUploadProgress: (progressEvent) => {
             setUploadPercentage(
@@ -51,7 +51,7 @@ const FileUpload = ({ testFunction, hideFunction }) => {
             );
             // Clear percentage
             setTimeout(() => setUploadPercentage(0), 1000);
-          }
+          },
         }
       );
       const { filePath } = res.data;
@@ -72,9 +72,9 @@ const FileUpload = ({ testFunction, hideFunction }) => {
     fetch('http://localhost:5000/note/downdate', {
       method: 'POST',
       headers: {
-        'Content-Type': 'application/json'
+        'Content-Type': 'application/json',
       },
-      body: JSON.stringify(el)
+      body: JSON.stringify(el),
     });
     setPhotoArray(photoArray.filter((item) => item !== el));
   };
@@ -86,17 +86,34 @@ const FileUpload = ({ testFunction, hideFunction }) => {
 
   return (
     <div>
+      <button onClick={() => hideFunction()} className='btn btn-primary mb-3'>
+        Выйти из меню фото/видео
+      </button>
+
       <div style={{ display: 'flex', justifyContent: 'space-around' }}>
-        <div>
-          {
-            recordMyVideo ? <RecordingVideo data={RecordingVideoHandler} />
-              : <button onClick={RecordingVideoHandler} className={'btn btn-success'}>Включить режим записи видео</button>
-          }
-        </div>
+        {/* <div> */}
+        {recordMyVideo ? (
+          <RecordingVideo data={RecordingVideoHandler} />
+        ) : (
+          // <button onClick={RecordingVideoHandler} className={'btn btn-success'}>
+          //   Включить режим записи видео
+          // </button>
+          <div>
+            <p>Включить режим записи видео</p>
+            <img
+              className='ml-5'
+              style={{ width: '110px' }}
+              src='https://lh3.googleusercontent.com/proxy/V8Q-w52V8lQfSmGWCA8p2yvflFfo685DRcrhSA-3dfNXtiaX3SUG0xM7okIW0tPMifdwjBntk3NhS-xSV4fbEBJhgNg84DugOqByWk_vBUFBpb4rjatrPcMusPmpMXWxFK1YbLy1d06zklBxVHb9NlPoo90OCM3amNa4'
+              onClick={RecordingVideoHandler}
+            />
+          </div>
+        )}
+        {/* </div> */}
         <div>
           <RecordingPhoto />
         </div>
       </div>
+
       <div>
         <div className='p-4 mb-3 bg-light rounded'>
           {message && <Message msg={message} />}
@@ -118,39 +135,33 @@ const FileUpload = ({ testFunction, hideFunction }) => {
             defaultValue='Загрузить'
             className='btn btn-primary mt-3 mb-3'
           />
-          <button
-            onClick={() => hideFunction()}
-            className='btn btn-warning mb-3 mt-3 ml-2'
-          >
-            Выйти
-        </button>
         </div>
         {photoArray.length > 0
           ? photoArray.map((el) => (
-            <div key={el.filePath} className='container h-100 '>
-              <hr />
-              <div className='row align-items-center h-100'>
-                <div className='col mx-auto'>
-                  <img
-                    className='m-2 '
-                    style={{ width: '25%' }}
-                    src={el.filePath}
-                    alt={el.originalFileName}
-                  />
-                </div>
-                <div className='col mx-auto mr-4'>{el.originalFileName}</div>
-                <div className='col'>
-                  <button
-                    className='btn btn-primary offset-sm-8'
-                    onClick={() => onDeleteFoto(el)}
-                  >
-                    Удалить
-                  </button>
-                </div>
+              <div key={el.filePath} className='container h-100 '>
                 <hr />
+                <div className='row align-items-center h-100'>
+                  <div className='col mx-auto'>
+                    <img
+                      className='m-2 '
+                      style={{ width: '25%' }}
+                      src={el.filePath}
+                      alt={el.originalFileName}
+                    />
+                  </div>
+                  <div className='col mx-auto mr-4'>{el.originalFileName}</div>
+                  <div className='col'>
+                    <button
+                      className='btn btn-primary offset-sm-8'
+                      onClick={() => onDeleteFoto(el)}
+                    >
+                      Удалить
+                    </button>
+                  </div>
+                  <hr />
+                </div>
               </div>
-            </div>
-          ))
+            ))
           : null}
       </div>
     </div>
