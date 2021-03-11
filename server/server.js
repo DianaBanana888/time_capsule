@@ -9,9 +9,12 @@ let mailOptions = {
   from: process.env.SENDER_EMAIL,
   to: '',
   subject: 'Email from Time Capsule',
-  text: '',
   attachments: [{ filename: '', path: '' }],
+  html: `<h2 style="color: darkblue; padding: 30px ; width: 100%; text-align: center;">
+    Это письмо было отправлено Вам из прошлого. Time Capsule - хранитель Ваших воспоминаний.
+    </h2>`,
 };
+
 // e-mail transport configuration
 let transporter = nodemailer.createTransport({
   service: "mail.ru",
@@ -44,8 +47,19 @@ const cronStart = cron.schedule("* * * * *", async () => {
         {
           ...mailOptions,
           to: element.receivers,
-          text: element.text,
           attachments: arrayPhoto,
+          html: `
+              <div style="background-color: aliceblue; width: 90%;">
+              <p style="color: darkblue; width: 100%;  font-style: italic;">Текст отправителя:</p>
+              <br />
+              <div style="color: darkblue; width: 100%;  font-style: italic; font-size: 120%;">
+              ${element.text}
+              </div>
+              <br />
+              <h2 style="color: darkblue; padding: 30px ; width: 100%; text-align: center;">
+              <a href='http://localhost:3000/' style="color: darkblue; width: 100%; text-align: center; font-size: 120%; text-decoration: none;">Это письмо было отправлено Вам из прошлого. Time Capsule - хранитель Ваших воспоминаний.</a>
+              </h2>
+            </div >`,
         },
         function (error, info) {
           if (error) {
