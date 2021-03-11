@@ -5,6 +5,7 @@ import Message from './Message';
 import Progress from './Progress';
 import RecordingVideo from '../Webcam/RecordingVideo';
 import RecordingPhoto from '../Webcam/RecordingPhoto';
+import video from '../../components/video.png';
 
 const FileUpload = ({ testFunction, hideFunction }) => {
   const { note } = useSelector((state) => state);
@@ -103,7 +104,7 @@ const FileUpload = ({ testFunction, hideFunction }) => {
             <img
               className='ml-5'
               style={{ width: '110px' }}
-              src='https://lh3.googleusercontent.com/proxy/V8Q-w52V8lQfSmGWCA8p2yvflFfo685DRcrhSA-3dfNXtiaX3SUG0xM7okIW0tPMifdwjBntk3NhS-xSV4fbEBJhgNg84DugOqByWk_vBUFBpb4rjatrPcMusPmpMXWxFK1YbLy1d06zklBxVHb9NlPoo90OCM3amNa4'
+              src={video}
               onClick={RecordingVideoHandler}
             />
           </div>

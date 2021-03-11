@@ -4,7 +4,7 @@ import Card from '@material-ui/core/Card';
 import CardContent from '@material-ui/core/CardContent';
 import CardMedia from '@material-ui/core/CardMedia';
 import Typography from '@material-ui/core/Typography';
-
+import letter from './letter.jpg';
 const useStyles = makeStyles({
   root: {
     maxWidth: 2500,
@@ -19,11 +19,7 @@ export default function MediaCard() {
 
   return (
     <Card className={classes.root}>
-      <CardMedia
-        className={classes.media}
-        image='https://liberty-intl.org/wp-content/uploads/2019/01/Letter.jpg'
-        title='...'
-      />
+      <CardMedia className={classes.media} image={letter} title='...' />
       <CardContent>
         <Typography gutterBottom variant='h5' component='h2'>
           Об этом проекте:
