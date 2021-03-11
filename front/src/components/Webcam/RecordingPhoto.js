@@ -57,11 +57,27 @@ const RecordingPhoto = () => {
 
   return (
     <div>
-      <div>
+      {/* <div> */}
+      {/* <button className={buttonStyle} onClick={startPhotoHandler}>
+        {buttonPhotoStart}
+      </button> */}
+
+      {capturing ? (
         <button className={buttonStyle} onClick={startPhotoHandler}>
           {buttonPhotoStart}
         </button>
-      </div>
+      ) : (
+        <div>
+          <p>Включить режим записи фото</p>
+          <img
+            className='ml-5'
+            style={{ width: '100px' }}
+            src='https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTp2D_CvEgI6ogbS0K1n6tKLB59uXNn6wYCatGS8r8Vjxg9b8EkxOevETF8gkip0fNBaI0&usqp=CAU&ec=45780880'
+            onClick={startPhotoHandler}
+          />
+        </div>
+      )}
+      {/* </div> */}
       {capturing ? (
         <div>
           <div>
