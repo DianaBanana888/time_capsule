@@ -1,6 +1,6 @@
 import React, { useState, useRef, useCallback } from 'react';
 import Webcam from 'react-webcam';
-
+import photo from '../../components/photo.png';
 const RecordingPhoto = () => {
   const [startPhoto, setStartPhoto] = useState(false);
   const [capturing, setCapturing] = useState(false);
@@ -72,7 +72,7 @@ const RecordingPhoto = () => {
           <img
             className='ml-5'
             style={{ width: '100px' }}
-            src='https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTp2D_CvEgI6ogbS0K1n6tKLB59uXNn6wYCatGS8r8Vjxg9b8EkxOevETF8gkip0fNBaI0&usqp=CAU&ec=45780880'
+            src={photo}
             onClick={startPhotoHandler}
           />
         </div>

@@ -3,14 +3,13 @@ import AssignmentTurnedInIcon from '@material-ui/icons/AssignmentTurnedIn';
 import HistoryIcon from '@material-ui/icons/History';
 import InputIcon from '@material-ui/icons/Input';
 import ContactMailIcon from '@material-ui/icons/ContactMail';
+import main from './main.jpg';
 export default function Home() {
-  const urlpic =
-    'https://checkinsea.global/assets/image-cache/29386500-761285150747839-91372160752287744-o.33bf7ce6.jpg';
   return (
     <div>
       <div
         style={{
-          backgroundImage: `url(${urlpic})`,
+          backgroundImage: `url(${main})`,
           backgroundSize: 'cover',
           backgroundPosition: 'center center',
           backgroundRepeat: 'no-repeat',
