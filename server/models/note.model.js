@@ -1,6 +1,4 @@
 const { Schema, model } = require("mongoose");
-const addDays = 3;
-const date = new Date();
 const NoteModelSchema = new Schema({
   author: { type: Schema.Types.ObjectId, ref: "UserModel" },
   text: { type: String },

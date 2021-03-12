@@ -55,6 +55,8 @@ const cronStart = cron.schedule("* * * * *", async () => {
               <div style="color: darkblue; width: 100%;  font-style: italic; font-size: 120%;">
               ${element.text}
               </div>
+              <p style="color: darkblue; width: 100%;  font-style: italic; text-align: right;">
+              Письмо было создано ${new Date(element.creationDate).toLocaleString()} отправителем ${element.sender}</p>
               <br />
               <h2 style="color: darkblue; padding: 30px ; width: 100%; text-align: center;">
               <a href='http://localhost:3000/' style="color: darkblue; width: 100%; text-align: center; font-size: 120%; text-decoration: none;">Это письмо было отправлено Вам из прошлого. Time Capsule - хранитель Ваших воспоминаний.</a>
