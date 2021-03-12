@@ -12,9 +12,9 @@ export default function SingleNote({ element }) {
     fetch('http://localhost:5000/singleNoteAction/changeMind', {
       method: 'POST',
       headers: {
-        'Content-Type': 'application/json',
+        'Content-Type': 'application/json'
       },
-      body: JSON.stringify({ id, wantSending }),
+      body: JSON.stringify({ id, wantSending })
     });
     dispatch(changeMindAC(id, wantSending));
   };
@@ -23,9 +23,9 @@ export default function SingleNote({ element }) {
     fetch('http://localhost:5000/singleNoteAction/delete', {
       method: 'POST',
       headers: {
-        'Content-Type': 'application/json',
+        'Content-Type': 'application/json'
       },
-      body: JSON.stringify({ id }),
+      body: JSON.stringify({ id })
     });
     dispatch(deleteAC(id));
   };
@@ -38,9 +38,9 @@ export default function SingleNote({ element }) {
     fetch('http://localhost:5000/singleNoteAction/upd', {
       method: 'POST',
       headers: {
-        'Content-Type': 'application/json',
+        'Content-Type': 'application/json'
       },
-      body: JSON.stringify({ id, text }),
+      body: JSON.stringify({ id, text })
     });
     dispatch(updateTextAC(id, text));
   };
@@ -51,7 +51,7 @@ export default function SingleNote({ element }) {
         style={{
           display: 'flex',
           flexWrap: 'wrap',
-          justifyContent: 'center',
+          justifyContent: 'center'
         }}
       >
         <div>
@@ -71,7 +71,7 @@ export default function SingleNote({ element }) {
             display: 'flex',
             flexDirection: 'column',
             flexWrap: 'wrap',
-            justifyContent: 'space-evently',
+            justifyContent: 'space-evently'
           }}
         >
           <h4>
@@ -95,8 +95,8 @@ export default function SingleNote({ element }) {
                   />
                 </div>
               ) : (
-                <label>{element.text}</label>
-              )}
+                  <label>{element.text}</label>
+                )}
               <div>
                 {edit ? (
                   <button
@@ -109,13 +109,13 @@ export default function SingleNote({ element }) {
                     Сохранить изменения
                   </button>
                 ) : (
-                  <button
-                    className='btn btn-outline-primary'
-                    onClick={() => setEdit(true)}
-                  >
-                    Редактировать
-                  </button>
-                )}
+                    <button
+                      className='btn btn-outline-primary'
+                      onClick={() => setEdit(true)}
+                    >
+                      Редактировать
+                    </button>
+                  )}
               </div>
             </div>
           </div>
