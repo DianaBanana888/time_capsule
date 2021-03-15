@@ -57,7 +57,7 @@ export default function LetterForm() {
 
   return (
     <div>
-      <h4 className='mb-4'>Ваше письмо в будущее</h4>
+      <h4 className='mb-4'>Your note to the Future:</h4>
       <form onSubmit={(event) => onSubmitHandler(event)}>
         <div className='form-group'>
           <textarea

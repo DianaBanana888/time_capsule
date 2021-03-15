@@ -1,0 +1,9 @@
+{
+  "name": "time_capsule_",
+  "scripts": {
+    "install": "cd front && npm install && cd ../server && npm install",
+    "start_front": "cd front && npx yarn start",
+    "start_server": "cd server && nodemon server.js",
+    "run": "cd front && npx yarn start"
+  }
+}
