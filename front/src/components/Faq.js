@@ -1,10 +1,9 @@
 import Card from './Card';
-const Faq = () => {
-  return (
-    <div>
-      <Card />
-    </div>
-  );
-};
+
+const Faq = () => (
+  <div>
+    <Card />
+  </div>
+);
 
 export default Faq;

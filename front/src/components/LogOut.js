@@ -10,7 +10,7 @@ export default function LogOut() {
   async function logOutHandler() {
     dispatch(loadingAC());
     const response = await fetch('/auth/signout', {
-      method: 'POST',
+      method: 'POST'
     });
     if (response) {
       const result = await response.json();
@@ -25,13 +25,13 @@ export default function LogOut() {
   }
   return (
     <div>
-      <span>Чтобы выйти из учётной записи, нажмите </span>
+      <span>To leave the site push the  </span>
       <button
         onClick={() => logOutHandler()}
         type='button'
         className='btn btn-primary pl-2'
       >
-        Выйти
+        Log out
       </button>
       {loading && <Spinner />}
       {error && <p style={{ color: 'red' }}>{error}</p>}

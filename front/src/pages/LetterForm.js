@@ -4,8 +4,6 @@ import { saveNewLetterAC } from '../store/actions';
 import FileUpload from '../components/FileUpload/FileUpload';
 import Message from '../components/FileUpload/Message';
 
-// import MaterialUIPickers from '../components/DateTimePicker';
-
 export default function LetterForm() {
   const [showUpload, setShowupload] = useState(false);
   const [successSubmit, setSuccessSubmit] = useState('');
@@ -37,7 +35,7 @@ export default function LetterForm() {
       deliveryDate: ''
     });
     setShowupload(false);
-    setSuccessSubmit('Письмо отправлено');
+    setSuccessSubmit('The letter is saved!');
   };
 
   const onChangeHandler = (event) => {
@@ -64,7 +62,7 @@ export default function LetterForm() {
         <div className='form-group'>
           <textarea
             className='form-control'
-            placeholder='Дорогой Будущий я...'
+            placeholder='Dear Future me...'
             rows='10'
             name='textAreaValue'
             value={values.textAreaValue}
@@ -76,14 +74,14 @@ export default function LetterForm() {
             onClick={() => showUploadHandler()}
             className='btn btn-primary mb-3'
           >
-            Добавить фото/видео
+            Add photo/video
           </button>
         ) : (
             <FileUpload testFunction={testFunction} hideFunction={hideFunction} />
           )}
         <div className='p-4 mt-3 bg-light rounded'>
           <div className='form-group row ml-1 mt-2 '>
-            <h5 className='mr-2 mb-3'>Email для доставки письма:</h5>
+            <h5 className='mr-2 mb-3'>Reciever's email:</h5>
             <input
               className='form-control form-control-label'
               type='text'
@@ -96,7 +94,7 @@ export default function LetterForm() {
 
           <div className='form-group'>
             <div className='form-group row ml-1'>
-              <h5 className='mr-2 mt-3'>Выбрать дату:</h5>
+              <h5 className='mr-2 mt-3'>Pick a date:</h5>
               <input
                 className='form-control'
                 type='datetime-local'
@@ -111,7 +109,7 @@ export default function LetterForm() {
         </div>
         <div>
           <input
-            defaultValue='Отправить'
+            defaultValue='Send'
             type='submit'
             className='btn btn-primary mt-3 mb-3'
           ></input>

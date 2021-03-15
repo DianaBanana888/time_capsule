@@ -7,21 +7,21 @@ export default function MyAccount() {
   const { userName, note } = useSelector((state) => state);
   return (
     <div>
-      <h3>Добрый день, {userName}</h3>
+      <h3>Hello, {userName}</h3>
 
       <div className='bg-light p-3 m-4 rounded'>
         <p>
-          Помните, Вы можете деактивировать запись. Вы все еще сможете видеть
-          деактивированную запись в личном кабинете.{' '}
+          Remember, you can deactivate the recording. You can still see
+           deactivated entry in the personal account.{' '}
         </p>
-        <p> Чтобы заново активировать запись - поставьте галочку</p>
+        <p> To reactivate the recording - check the box</p>
       </div>
-      <h4 className='mb-4'>Созданные Вами записи:</h4>
+      <h4 className='mb-4'>The notes you created:</h4>
       <ul>
         {note.length > 0
           ? note.map((element, index) => (
-              <SingleNote element={element} key={index} />
-            ))
+            <SingleNote element={element} key={index} />
+          ))
           : null}
       </ul>
     </div>

@@ -1,6 +1,7 @@
 import React, { useState, useRef, useCallback } from 'react';
 import Webcam from 'react-webcam';
-import photo from '../../components/photo.png';
+import photo from '../photo.png';
+
 const RecordingPhoto = () => {
   const [startPhoto, setStartPhoto] = useState(false);
   const [capturing, setCapturing] = useState(false);
@@ -9,12 +10,12 @@ const RecordingPhoto = () => {
 
   const buttonStart = {
     styleStart: 'btn btn-success mb-3',
-    labelStart: 'Включить режим фотоснимков',
+    labelStart: 'Start photoshoot'
   };
 
   const buttonEnd = {
     styleEnd: 'btn btn-info mb-3',
-    labelEnd: 'Отключить режим фотоснимков',
+    labelEnd: 'Stop photoshoot'
   };
 
   const [buttonPhotoStart, setButtonPhotoStart] = useState(
@@ -57,32 +58,26 @@ const RecordingPhoto = () => {
 
   return (
     <div>
-      {/* <div> */}
-      {/* <button className={buttonStyle} onClick={startPhotoHandler}>
-        {buttonPhotoStart}
-      </button> */}
-
       {capturing ? (
         <button className={buttonStyle} onClick={startPhotoHandler}>
           {buttonPhotoStart}
         </button>
       ) : (
-        <div>
-          <p>Включить режим записи фото</p>
-          <img
-            className='ml-5'
-            style={{ width: '100px' }}
-            src={photo}
-            onClick={startPhotoHandler}
-          />
-        </div>
-      )}
-      {/* </div> */}
+          <div>
+            <p>Start photo-camera</p>
+            <img
+              className='ml-5'
+              style={{ width: '100px' }}
+              src={photo}
+              onClick={startPhotoHandler}
+            />
+          </div>
+        )}
       {capturing ? (
         <div>
           <div>
             <button onClick={capture} className={'btn btn-success mb-3'}>
-              Сделать фото
+              Make photo
             </button>
           </div>
           {imgSrc && <img src={imgSrc} className={'mb-3'} />}

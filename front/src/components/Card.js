@@ -5,13 +5,14 @@ import CardContent from '@material-ui/core/CardContent';
 import CardMedia from '@material-ui/core/CardMedia';
 import Typography from '@material-ui/core/Typography';
 import letter from './letter.jpg';
+
 const useStyles = makeStyles({
   root: {
-    maxWidth: 2500,
+    maxWidth: 2500
   },
   media: {
-    height: 250,
-  },
+    height: 250
+  }
 });
 
 export default function MediaCard() {
@@ -22,40 +23,36 @@ export default function MediaCard() {
       <CardMedia className={classes.media} image={letter} title='...' />
       <CardContent>
         <Typography gutterBottom variant='h5' component='h2'>
-          Об этом проекте:
+          About the project:
         </Typography>
         <Typography variant='body2' color='textSecondary' component='div'>
           <p>
-            Мы предлагаем Вам простой и удобный в использовании сервис для
-            отправки электронных писем.
+            We offer you a simple and easy-to-use service for sending emails.
           </p>
           <p>
-            Вы можете отправить в будущее послание для себя или для кого-то из
-            близких.
+            You can send a message to the future for yourself or someone close to you.
           </p>
           <p>
-            Мы доставим Ваше письмо в указанную Вами дату, на тот адрес
-            электронной почты, который Вы укажете.
+            We will deliver your letter on the date you specified, to the email address that you specify.
           </p>
           <p>
-            К письму можно прикреплять фото и видео, а также снимать фото и
-            видео прямо в приложении.
+            You can attach photos and videos to the letter, as well as take photos and videos right in the application.
           </p>
         </Typography>
         <Typography gutterBottom variant='h5' component='h2'>
-          Как вы можете использовать наш сервис?
+          How can you use our service?
         </Typography>
 
         <ol>
-          <li>Это может быть ваше послание самому себе</li>
+          <li>This could be your message to yourself</li>
           <li>
-            Или вы можете завести новый электронный адрес, отправлять на него
-            письма для своих детей или родных, а потом дать им логин и пароль от
-            этого почтового ящика.
+            Or you can create a new email address, send
+            letters for your children or relatives, and then give them a username and password from
+            this mailbox.
           </li>
           <li>
-            А также можно написать завещание и адресаты получат письмо с ним
-            после смерти отправителя.{' '}
+            And you can also write a will and the addressees will receive a letter
+             after the death of the sender.{' '}
           </li>
         </ol>
       </CardContent>

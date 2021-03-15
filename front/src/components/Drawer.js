@@ -11,6 +11,7 @@ import HelpIcon from '@material-ui/icons/Help';
 import Typography from '@material-ui/core/Typography';
 import { useDispatch, useSelector } from 'react-redux';
 import Box from '@material-ui/core/Box';
+import AllInboxIcon from '@material-ui/icons/AllInbox';
 import Home from './Home';
 import Card from './Card';
 import LetterForm from '../pages/LetterForm';
@@ -18,10 +19,11 @@ import Auth from '../pages/Auth';
 import LogOut from './LogOut';
 import { loadingAC, loadedAC, logOutAC } from '../store/actions';
 import MyAccount from '../pages/MyAccount';
-import AllInboxIcon from '@material-ui/icons/AllInbox';
 
 function TabPanel(props) {
-  const { children, value, index, ...other } = props;
+  const {
+    children, value, index, ...other
+  } = props;
 
   return (
     <div
@@ -43,13 +45,13 @@ function TabPanel(props) {
 TabPanel.propTypes = {
   children: PropTypes.node,
   index: PropTypes.any.isRequired,
-  value: PropTypes.any.isRequired,
+  value: PropTypes.any.isRequired
 };
 
 function a11yProps(index) {
   return {
     id: `scrollable-force-tab-${index}`,
-    'aria-controls': `scrollable-force-tabpanel-${index}`,
+    'aria-controls': `scrollable-force-tabpanel-${index}`
   };
 }
 
@@ -57,8 +59,8 @@ const useStyles = makeStyles((theme) => ({
   root: {
     flexGrow: 1,
     width: '100%',
-    backgroundColor: theme.palette.background.paper,
-  },
+    backgroundColor: theme.palette.background.paper
+  }
 }));
 
 export default function ScrollableTabsButtonForce() {
@@ -75,7 +77,7 @@ export default function ScrollableTabsButtonForce() {
   async function logOutHandler() {
     dispatch(loadingAC());
     const response = await fetch('/auth/signout', {
-      method: 'POST',
+      method: 'POST'
     });
     if (response) {
       const result = await response.json();
@@ -102,17 +104,17 @@ export default function ScrollableTabsButtonForce() {
           aria-label='scrollable force tabs example'
         >
           <Tab
-            label='Главная'
+            label='Main'
             value={0}
             icon={<HomeIcon />}
             {...a11yProps(0)}
           />
 
-          <Tab label='О нас' value={1} icon={<HelpIcon />} {...a11yProps(1)} />
+          <Tab label='About us' value={1} icon={<HelpIcon />} {...a11yProps(1)} />
 
           {isAuth && (
             <Tab
-              label='Написать письмо'
+              label='Write'
               value={2}
               icon={<MailIcon />}
               {...a11yProps(2)}
@@ -121,7 +123,7 @@ export default function ScrollableTabsButtonForce() {
 
           {isAuth && (
             <Tab
-              label='Личный кабинет'
+              label='The office'
               value={3}
               icon={<AllInboxIcon />}
               {...a11yProps(3)}
@@ -131,19 +133,19 @@ export default function ScrollableTabsButtonForce() {
           {isAuth ? (
             <Tab
               onClick={() => logOutHandler()}
-              label='Выйти'
+              label='Log out'
               value={4}
               icon={<PersonPinIcon />}
               {...a11yProps(4)}
             />
           ) : (
-            <Tab
-              label='Войти'
-              value={4}
-              icon={<PersonPinIcon />}
-              {...a11yProps(4)}
-            />
-          )}
+              <Tab
+                label='Log in'
+                value={4}
+                icon={<PersonPinIcon />}
+                {...a11yProps(4)}
+              />
+            )}
         </Tabs>
       </AppBar>
 

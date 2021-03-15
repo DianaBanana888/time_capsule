@@ -75,14 +75,14 @@ export default function SingleNote({ element }) {
           }}
         >
           <h4>
-            Запись, созданая {dateFormat(element.creationDate)}, для адресата{' '}
+            The note created on {dateFormat(element.creationDate)}, for{' '}
             {element.receivers}
           </h4>
           <div className='bg-light p-3'>
-            <p>Отправка запланирована на {dateFormat(element.deliveryDate)} </p>
+            <p>Will be send on {dateFormat(element.deliveryDate)} </p>
 
             <p style={{ fontStyle: 'italic' }}>
-              Медиафайлы: {element.photo.length}шт
+              Mediafiles: {element.photo.length}шт
             </p>
 
             <div>
@@ -106,14 +106,14 @@ export default function SingleNote({ element }) {
                       saveEditItem(element._id, save);
                     }}
                   >
-                    Сохранить изменения
+                    Save
                   </button>
                 ) : (
                     <button
                       className='btn btn-outline-primary'
                       onClick={() => setEdit(true)}
                     >
-                      Редактировать
+                      Edit
                     </button>
                   )}
               </div>
@@ -126,7 +126,7 @@ export default function SingleNote({ element }) {
             className='btn btn-outline-dark'
             onClick={() => onDeleteSingleNote(element._id)}
           >
-            Удалить
+            Delete
           </button>
         </div>
       </li>

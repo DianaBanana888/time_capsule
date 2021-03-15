@@ -8,7 +8,7 @@ export default function Auth() {
   const [input, setInput] = useState({
     login: '',
     email: '',
-    password: '',
+    password: ''
   });
   const classStatus = 'btn btn-primary';
   const { loading, error } = useSelector((state) => state);
@@ -17,7 +17,7 @@ export default function Auth() {
     const { name, value } = event.target;
     setInput({
       ...input,
-      [name]: value,
+      [name]: value
     });
   }
   async function registrationHandler() {
@@ -25,9 +25,9 @@ export default function Auth() {
     const response = await fetch('/auth/registration', {
       method: 'POST',
       headers: {
-        'Content-Type': 'application/json',
+        'Content-Type': 'application/json'
       },
-      body: JSON.stringify({ ...input }),
+      body: JSON.stringify({ ...input })
     });
     dispatch(loadedAC());
     return response;
@@ -38,7 +38,9 @@ export default function Auth() {
     if (response.status === 200) {
       const result = await response.json();
       if (result.user && result.user.id) {
-        const { id, login, email, note } = result.user;
+        const {
+          id, login, email, note
+        } = result.user;
         dispatch(loginAC(id, login, email, note));
       }
       console.log('Welcome! Enjoy the web-site');
@@ -53,14 +55,16 @@ export default function Auth() {
     const response = await fetch('/auth/login', {
       method: 'POST',
       headers: {
-        'Content-Type': 'application/json',
+        'Content-Type': 'application/json'
       },
-      body: JSON.stringify({ ...input }),
+      body: JSON.stringify({ ...input })
     });
     if (response.status === 200) {
       const result = await response.json();
       if (result.user && result.user.id) {
-        const { id, login, email, note } = result.user;
+        const {
+          id, login, email, note
+        } = result.user;
         dispatch(loginAC(id, login, email, note));
       }
       console.log('Welcome! Enjoy the web-site');
