@@ -50,16 +50,16 @@ const cronStart = cron.schedule("* * * * *", async () => {
           attachments: arrayPhoto,
           html: `
               <div style="background-color: aliceblue; width: 90%;">
-              <p style="color: darkblue; width: 100%;  font-style: italic;">Текст отправителя:</p>
+              <p style="color: darkblue; width: 100%;  font-style: italic;">The text:</p>
               <br />
               <div style="color: darkblue; width: 100%;  font-style: italic; font-size: 120%;">
               ${element.text}
               </div>
               <p style="color: darkblue; width: 100%;  font-style: italic; text-align: right;">
-              Письмо было создано ${new Date(element.creationDate).toLocaleString()} отправителем ${element.sender}</p>
+              The letter was creater ${new Date(element.creationDate).toLocaleString()} by ${element.sender}</p>
               <br />
               <h2 style="color: darkblue; padding: 30px ; width: 100%; text-align: center;">
-              <a href='http://localhost:3000/' style="color: darkblue; width: 100%; text-align: center; font-size: 120%; text-decoration: none;">Это письмо было отправлено Вам из прошлого. Time Capsule - хранитель Ваших воспоминаний.</a>
+              <a href='http://time-capsule-elbrus.heroku.com/' style="color: darkblue; width: 100%; text-align: center; font-size: 120%; text-decoration: none;">This letter was sent from the Past. Time Capsule - memory's keeper.</a>
               </h2>
             </div >`,
         },
