@@ -1,9 +1,9 @@
 {
-  "name": "time_capsule_",
+  "name": "time_capsule",
   "scripts": {
-    "install": "cd front && npm install && cd ../server && npm install",
-    "start_front": "cd front && npx yarn start",
-    "start_server": "cd server && nodemon server.js",
-    "run": "cd front && npx yarn start"
+    "install": "cd front && npm i --production=false && cd ../server && npm i --production=false",
+    "start": "npm run front & npm run server",
+    "front": "cd front && npx yarn start",
+    "server": "cd server && PORT=5000 npx nodemon server.js"
   }
 }
