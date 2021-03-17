@@ -2,8 +2,9 @@
   "name": "time_capsule",
   "scripts": {
     "install": "cd front && npm i --production=false && cd ../server && npm i --production=false",
+    "build": "cd front && npx yarn build",
     "start": "npm run front & npm run server",
-    "front": "cd front && npx yarn start",
+    "front": "cd front && npx http-server -p ${PORT:-3000} --proxy=http://localhost:5000 ./build",
     "server": "cd server && PORT=5000 npx nodemon server.js"
   }
 }
