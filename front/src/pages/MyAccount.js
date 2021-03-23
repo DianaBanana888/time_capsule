@@ -18,7 +18,7 @@ export default function MyAccount() {
       </div>
       <h4 className='mb-4'>The notes you created:</h4>
       <ul>
-        {note.length > 0
+        {note && note.length > 0
           ? note.map((element, index) => (
             <SingleNote element={element} key={index} />
           ))
