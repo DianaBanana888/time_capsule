@@ -38,7 +38,7 @@ const FileUpload = ({ testFunction, hideFunction }) => {
 
     try {
       const res = await axios.post(
-        'http://localhost:5000/note/upload',
+        '/note/upload',
         formData,
         {
           headers: {
@@ -70,7 +70,7 @@ const FileUpload = ({ testFunction, hideFunction }) => {
   };
 
   const onDeleteFoto = (el) => {
-    fetch('http://localhost:5000/note/downdate', {
+    fetch('/note/downdate', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'

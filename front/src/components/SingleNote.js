@@ -9,7 +9,7 @@ export default function SingleNote({ element }) {
   const dateFormat = (d) => new Date(d).toLocaleString();
 
   const onChangeMind = (id, wantSending) => {
-    fetch('http://localhost:5000/singleNoteAction/changeMind', {
+    fetch('/singleNoteAction/changeMind', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'
@@ -20,7 +20,7 @@ export default function SingleNote({ element }) {
   };
 
   const onDeleteSingleNote = (id) => {
-    fetch('http://localhost:5000/singleNoteAction/delete', {
+    fetch('/singleNoteAction/delete', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'
@@ -35,7 +35,7 @@ export default function SingleNote({ element }) {
   };
 
   const saveEditItem = (id, text) => {
-    fetch('http://localhost:5000/singleNoteAction/upd', {
+    fetch('/singleNoteAction/upd', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'
