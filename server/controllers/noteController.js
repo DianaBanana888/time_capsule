@@ -28,7 +28,11 @@ class noteController {
     }
     const file = req.files.file;
     const timer = new Date().getTime()
-    file.mv(`${__dirname}/../../front/uploads/${timer + '-' + file.name}`, err => {
+    
+    const uploadDir = `${__dirname}/../../front/uploads/`
+    fs.mkdirSync(uploadDir, {recursive: true})
+
+    file.mv(`${uploadDir}/${timer + '-' + file.name}`, err => {
       if (err) {
         console.error(err);
         res.status(500).send(err);
